@@ -38,7 +38,7 @@ export default function EventForm({ onSubmit, initial = {} }) {
 
         <div style={{ marginBottom: '1rem' }}>
           <label style={lStyle}>Event Name *</label>
-          <input required style={iStyle} value={form.name} onChange={e => set('name', e.target.value)} placeholder="Janmashtami Mahotsav / जन्माष्टमी महोत्सव" />
+          <input required style={iStyle} value={form.name} onChange={e => set('name', e.target.value)} placeholder="Janmashtami Mahotsav" />
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1rem' }}>

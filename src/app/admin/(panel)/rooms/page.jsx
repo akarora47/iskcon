@@ -140,7 +140,7 @@ export default function AdminRooms() {
           <div style={{ background: '#1a0d00', border: '1px solid rgba(237,104,0,.3)', borderRadius: '1.2rem', padding: '2rem', width: '100%', maxWidth: '620px' }}>
             <h2 style={{ color: 'white', margin: '0 0 1.5rem', fontSize: '1.2rem' }}>{editItem ? '✏️ Edit Room' : '+ Add New Room'}</h2>
             <div style={{ display: 'grid', gap: '1.1rem' }}>
-              <div><label style={sty.label}>Room Name *</label><input style={sty.input} value={form.title} onChange={e => set('title', e.target.value)} required placeholder="Deluxe Room / डीलक्स रूम" /></div>
+              <div><label style={sty.label}>Room Name *</label><input style={sty.input} value={form.title} onChange={e => set('title', e.target.value)} required placeholder="Deluxe Room" /></div>
               <div>
                 <label style={sty.label}>Description</label>
                 <RichEditor value={form.description || ''} onChange={(content) => set('description', content)} height={220} />

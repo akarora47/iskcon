@@ -2,8 +2,8 @@
 import { useState, useEffect } from 'react';
 import Modal from './Modal';
 
-const fLabel = { display:'block', fontSize:'.78rem', fontWeight:600, color:'#6a4020', marginBottom:'.35rem', textTransform:'uppercase', letterSpacing:'.08em', fontFamily:'var(--font-poppins),sans-serif' };
-const fInput = { width:'100%', padding:'.7rem 1rem', border:'1.5px solid rgba(237,104,0,.25)', borderRadius:'.75rem', fontSize:'.9rem', fontFamily:'var(--font-poppins),sans-serif', color:'#1a0900', background:'white', outline:'none', boxSizing:'border-box' };
+const fLabel = { display:'block', fontSize:'.78rem', fontWeight:600, color:'#444', marginBottom:'.35rem', textTransform:'uppercase', letterSpacing:'.08em', fontFamily:'var(--font-poppins),sans-serif' };
+const fInput = { width:'100%', padding:'.7rem 1rem', border:'1.5px solid rgba(196,85,0,.2)', borderRadius:'.75rem', fontSize:'.9rem', fontFamily:'var(--font-poppins),sans-serif', color:'#111', background:'white', outline:'none', boxSizing:'border-box' };
 
 export default function EventHeroBtns() {
   const [modal, setModal]       = useState(false);
@@ -58,8 +58,8 @@ export default function EventHeroBtns() {
         {submitted ? (
           <div style={{ textAlign:'center', padding:'2rem 0' }}>
             <div style={{ fontSize:'3.5rem', marginBottom:'1rem' }}>🎉</div>
-            <h4 style={{ fontFamily:'var(--font-cinzel),serif', fontSize:'1.1rem', fontWeight:700, color:'#1a0900', marginBottom:'.75rem' }}>Hare Krishna! You're Registered</h4>
-            <p style={{ fontSize:'.9rem', lineHeight:1.75, color:'#6a4020' }}>Your registration has been received. Our events team will send you confirmation details shortly. We look forward to celebrating with you!</p>
+            <h4 style={{ fontFamily:'var(--font-cinzel),serif', fontSize:'1.1rem', fontWeight:700, color:'#111', marginBottom:'.75rem' }}>Hare Krishna! You're Registered</h4>
+            <p style={{ fontSize:'.9rem', lineHeight:1.75, color:'#444' }}>Your registration has been received. Our events team will send you confirmation details shortly. We look forward to celebrating with you!</p>
             <button onClick={() => setModal(false)} className="btn-primary" style={{ marginTop:'1.5rem', border:'none', cursor:'pointer' }}>Close</button>
           </div>
         ) : (
@@ -75,7 +75,7 @@ export default function EventHeroBtns() {
                 ))}
               </select>
             </div>
-            <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:'1rem' }}>
+            <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(140px,1fr))', gap:'1rem' }}>
               <div>
                 <label style={fLabel}>First Name *</label>
                 <input required style={fInput} type="text" placeholder="First name" value={form.first_name} onChange={set('first_name')} />
@@ -89,7 +89,7 @@ export default function EventHeroBtns() {
               <label style={fLabel}>Email *</label>
               <input required style={fInput} type="email" placeholder="email@example.com" value={form.email} onChange={set('email')} />
             </div>
-            <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:'1rem' }}>
+            <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(140px,1fr))', gap:'1rem' }}>
               <div>
                 <label style={fLabel}>Phone *</label>
                 <input required style={fInput} type="tel" placeholder="+91 00000 00000" value={form.phone} onChange={set('phone')} />

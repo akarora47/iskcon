@@ -2,8 +2,8 @@
 import { useState } from 'react';
 import Modal from './Modal';
 
-const fLabel = { display:'block', fontSize:'.78rem', fontWeight:600, color:'#6a4020', marginBottom:'.35rem', textTransform:'uppercase', letterSpacing:'.08em', fontFamily:'var(--font-poppins),sans-serif' };
-const fInput = { width:'100%', padding:'.7rem 1rem', border:'1.5px solid rgba(237,104,0,.25)', borderRadius:'.75rem', fontSize:'.9rem', fontFamily:'var(--font-poppins),sans-serif', color:'#1a0900', background:'white', outline:'none', boxSizing:'border-box' };
+const fLabel = { display:'block', fontSize:'.78rem', fontWeight:600, color:'#444', marginBottom:'.35rem', textTransform:'uppercase', letterSpacing:'.08em', fontFamily:'var(--font-poppins),sans-serif' };
+const fInput = { width:'100%', padding:'.7rem 1rem', border:'1.5px solid rgba(196,85,0,.2)', borderRadius:'.75rem', fontSize:'.9rem', fontFamily:'var(--font-poppins),sans-serif', color:'#111', background:'white', outline:'none', boxSizing:'border-box' };
 
 export default function BookingModalBtns() {
   const [modal, setModal]       = useState(null); // 'room' | 'prasad' | null
@@ -15,8 +15,8 @@ export default function BookingModalBtns() {
   const SuccessMsg = ({ icon, msg }) => (
     <div style={{ textAlign:'center', padding:'2rem 0' }}>
       <div style={{ fontSize:'3.5rem', marginBottom:'1rem' }}>{icon}</div>
-      <h4 style={{ fontFamily:'var(--font-cinzel),serif', fontSize:'1.1rem', fontWeight:700, color:'#1a0900', marginBottom:'.75rem' }}>Hare Krishna!</h4>
-      <p style={{ fontSize:'.9rem', lineHeight:1.75, color:'#6a4020' }}>{msg}</p>
+      <h4 style={{ fontFamily:'var(--font-cinzel),serif', fontSize:'1.1rem', fontWeight:700, color:'#111', marginBottom:'.75rem' }}>Hare Krishna!</h4>
+      <p style={{ fontSize:'.9rem', lineHeight:1.75, color:'#444' }}>{msg}</p>
       <button onClick={() => setModal(null)} className="btn-primary" style={{ marginTop:'1.5rem', border:'none', cursor:'pointer' }}>Close</button>
     </div>
   );
@@ -25,7 +25,7 @@ export default function BookingModalBtns() {
     <>
       <div style={{ display:'flex', gap:'1rem', flexWrap:'wrap' }}>
         <button onClick={() => open('room')} className="btn-primary" style={{ border:'none', cursor:'pointer' }}>🏨 Book a Room</button>
-        <button onClick={() => open('prasad')} className="btn-outline-light" style={{ cursor:'pointer' }}>🍽️ Book Prasadam</button>
+        <button onClick={() => open('prasad')} className="btn-outline" style={{ cursor:'pointer' }}>🍽️ Book Prasadam</button>
       </div>
 
       {/* Room Booking Modal */}
@@ -38,7 +38,7 @@ export default function BookingModalBtns() {
               <label style={fLabel}>Full Name *</label>
               <input required style={fInput} type="text" placeholder="Your full name" />
             </div>
-            <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:'1rem' }}>
+            <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(140px,1fr))', gap:'1rem' }}>
               <div>
                 <label style={fLabel}>Email *</label>
                 <input required style={fInput} type="email" placeholder="email@example.com" />
@@ -57,7 +57,7 @@ export default function BookingModalBtns() {
                 <option>Deluxe Suite (₹2,500/night)</option>
               </select>
             </div>
-            <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:'1rem' }}>
+            <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(140px,1fr))', gap:'1rem' }}>
               <div>
                 <label style={fLabel}>Check-In *</label>
                 <input required style={fInput} type="date" />
@@ -92,7 +92,7 @@ export default function BookingModalBtns() {
               <label style={fLabel}>Your Name *</label>
               <input required style={fInput} type="text" placeholder="Your full name" />
             </div>
-            <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:'1rem' }}>
+            <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(140px,1fr))', gap:'1rem' }}>
               <div>
                 <label style={fLabel}>Email *</label>
                 <input required style={fInput} type="email" placeholder="email@example.com" />
@@ -116,7 +116,7 @@ export default function BookingModalBtns() {
                 <option>Custom Order</option>
               </select>
             </div>
-            <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:'1rem' }}>
+            <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(140px,1fr))', gap:'1rem' }}>
               <div>
                 <label style={fLabel}>Portions *</label>
                 <input required style={fInput} type="number" placeholder="e.g. 50" min="1" />

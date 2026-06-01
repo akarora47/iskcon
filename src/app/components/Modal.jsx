@@ -24,19 +24,19 @@ export default function Modal({ isOpen, onClose, title, children }) {
       {/* Backdrop */}
       <div
         onClick={onClose}
-        style={{ position:'absolute', inset:0, background:'rgba(10,4,0,.78)', backdropFilter:'blur(6px)' }}
+        style={{ position:'absolute', inset:0, background:'rgba(0,0,0,.55)', backdropFilter:'blur(8px)' }}
       />
       {/* Panel */}
       <div style={{
-        position:'relative', background:'#fffdf8', borderRadius:'1.75rem',
+        position:'relative', background:'#fff', borderRadius:'1.75rem',
         padding:'2.5rem', width:'100%', maxWidth:'520px',
         maxHeight:'90vh', overflowY:'auto',
-        boxShadow:'0 40px 100px rgba(0,0,0,.55)',
-        border:'1px solid rgba(237,104,0,.15)',
+        boxShadow:'0 40px 100px rgba(0,0,0,.25), 0 0 0 1px rgba(196,85,0,.08)',
+        border:'1px solid rgba(196,85,0,.14)',
       }}>
         {/* Header row */}
         <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between', marginBottom:'1.75rem' }}>
-          <h3 style={{ fontFamily:'var(--font-cinzel),serif', fontSize:'1.2rem', fontWeight:700, color:'#1a0900' }}>{title}</h3>
+          <h3 style={{ fontFamily:'var(--font-cinzel),serif', fontSize:'1.2rem', fontWeight:700, color:'#111' }}>{title}</h3>
           <button
             onClick={onClose}
             style={{ width:'2.25rem', height:'2.25rem', borderRadius:'50%', border:'none',

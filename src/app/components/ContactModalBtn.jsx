@@ -2,8 +2,8 @@
 import { useState } from 'react';
 import Modal from './Modal';
 
-const fLabel = { display:'block', fontSize:'.78rem', fontWeight:600, color:'#6a4020', marginBottom:'.35rem', textTransform:'uppercase', letterSpacing:'.08em', fontFamily:'var(--font-poppins),sans-serif' };
-const fInput = { width:'100%', padding:'.7rem 1rem', border:'1.5px solid rgba(237,104,0,.25)', borderRadius:'.75rem', fontSize:'.9rem', fontFamily:'var(--font-poppins),sans-serif', color:'#1a0900', background:'white', outline:'none', boxSizing:'border-box' };
+const fLabel = { display:'block', fontSize:'.78rem', fontWeight:600, color:'#444', marginBottom:'.35rem', textTransform:'uppercase', letterSpacing:'.08em', fontFamily:'var(--font-poppins),sans-serif' };
+const fInput = { width:'100%', padding:'.7rem 1rem', border:'1.5px solid rgba(196,85,0,.2)', borderRadius:'.75rem', fontSize:'.9rem', fontFamily:'var(--font-poppins),sans-serif', color:'#111', background:'white', outline:'none', boxSizing:'border-box' };
 
 export default function ContactModalBtn() {
   const [modal, setModal]       = useState(false);
@@ -45,13 +45,13 @@ export default function ContactModalBtn() {
         {submitted ? (
           <div style={{ textAlign:'center', padding:'2rem 0' }}>
             <div style={{ fontSize:'3.5rem', marginBottom:'1rem' }}>🙏</div>
-            <h4 style={{ fontFamily:'var(--font-cinzel),serif', fontSize:'1.1rem', fontWeight:700, color:'#1a0900', marginBottom:'.75rem' }}>Message Received!</h4>
-            <p style={{ fontSize:'.9rem', lineHeight:1.75, color:'#6a4020' }}>Thank you for reaching out. A confirmation has been sent to <strong>{form.email}</strong>. Our team will respond within 24 hours. Hare Krishna!</p>
+            <h4 style={{ fontFamily:'var(--font-cinzel),serif', fontSize:'1.1rem', fontWeight:700, color:'#111', marginBottom:'.75rem' }}>Message Received!</h4>
+            <p style={{ fontSize:'.9rem', lineHeight:1.75, color:'#444' }}>Thank you for reaching out. A confirmation has been sent to <strong>{form.email}</strong>. Our team will respond within 24 hours. Hare Krishna!</p>
             <button onClick={() => setModal(false)} className="btn-primary" style={{ marginTop:'1.5rem', border:'none', cursor:'pointer' }}>Close</button>
           </div>
         ) : (
           <form onSubmit={handleSubmit} style={{ display:'flex', flexDirection:'column', gap:'1rem' }}>
-            <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:'1rem' }}>
+            <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(140px,1fr))', gap:'1rem' }}>
               <div>
                 <label style={fLabel}>First Name *</label>
                 <input required style={fInput} type="text" placeholder="First name" value={form.first_name} onChange={set('first_name')} />

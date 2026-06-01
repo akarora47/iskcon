@@ -10,6 +10,9 @@ const navItems = [
   { href: '/admin/rooms',        label: 'Rooms',          icon: '🛏️' },
   { href: '/admin/donations',    label: 'Donations',      icon: '🌸' },
   { href: '/admin/inquiries',    label: 'Inquiries',      icon: '✉️' },
+  { href: '/admin/popup',           label: 'Event Popup',    icon: '🎯' },
+  { href: '/admin/temple-projects',  label: 'Temple Project',   icon: '🛕' },
+  { href: '/admin/life-membership',  label: 'Life Membership',  icon: '🌸' },
 ];
 
 export default function AdminSidebar({ adminName }) {

@@ -1,10 +1,8 @@
 -- ============================================================
 -- ISKCON Ayodhya — MySQL / MariaDB Database Schema
--- Import this file in phpMyAdmin
+-- ✅ Hostinger-ready version (no CREATE DATABASE / USE)
+-- Import this file in phpMyAdmin after selecting your database
 -- ============================================================
-
-CREATE DATABASE IF NOT EXISTS iskcon_ayodhya CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-USE iskcon_ayodhya;
 
 -- ── 1. EVENTS ──────────────────────────────────────────────
 CREATE TABLE IF NOT EXISTS events (
@@ -134,7 +132,7 @@ CREATE TABLE IF NOT EXISTS admin_users (
 );
 
 -- Default admin: username=admin  password=admin@123
--- NOTE: Visit /admin/setup after installation to set your real password!
+-- NOTE: Visit /api/admin/setup after installation to set your real password!
 INSERT INTO admin_users (username, password_hash, name) VALUES
 ('admin', '$2b$10$rOzJqvqvqvqvqvqvqvqvqO8K1234567890abcdefghijklmnopqr', 'ISKCON Admin');
 

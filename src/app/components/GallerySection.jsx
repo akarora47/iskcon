@@ -2,12 +2,12 @@
 import { useState } from 'react';
 
 const galleryItems = [
-  { label: 'देव दर्शन — Temple Deity',    img: '/temple-deity.png'   },
-  { label: 'पावन संकीर्तन — Festival Kirtan', img: '/festival-kirtan.jpg'  },
-  { label: 'गौशाला — GauShala',        img: '/gaushala.jpg'    },
-  { label: 'प्रसाद हॉल — Prasadam Hall',   img: '/prasadam-hall.jpg'  },
-  { label: 'आरती समारोह — Aarti Ceremony',  img: '/aarti-ceremony.jpg'  },
-  { label: 'मंदिर उद्यान — Temple Gardens',  img: '/temple-gardens.jpg'},
+  { label: 'Temple Deity — Divine Darshan',    img: '/temple-deity.png'   },
+  { label: 'Sacred Kirtan — Festival Celebration', img: '/festival-kirtan.jpg'  },
+  { label: 'GauShala — Sacred Cows', img: '/gaushala.jpg'    },
+  { label: 'Prasadam Hall — Free Meals', img: '/prasadam-hall.jpg'  },
+  { label: 'Aarti Ceremony — Daily Worship', img: '/aarti-ceremony.jpg'  },
+  { label: 'Temple Gardens — Sacred Grounds', img: '/temple-gardens.jpg'},
 ];
 
 export default function GallerySection() {
@@ -21,9 +21,9 @@ export default function GallerySection() {
       <section className="sec-light">
         <div className="wrap">
           <div className="reveal" style={{ textAlign:'center', marginBottom:'3rem' }}>
-            <span className="section-badge">मंदिर दर्शन · Temple Gallery</span>
-            <h2 style={{ fontSize:'clamp(1.8rem,3.5vw,2.75rem)', fontWeight:700, color:'#1a0900' }}>
-              दिव्य <span className="gradient-text">क्षण</span> — Divine Moments
+            <span className="section-badge">Temple Gallery · Divine Moments</span>
+            <h2 style={{ fontSize:'clamp(1.8rem,3.5vw,2.75rem)', fontWeight:700, color:'#111' }}>
+              Divine <span className="gradient-text">Moments</span>
             </h2>
             <div className="gold-line-center" />
           </div>
@@ -74,7 +74,7 @@ export default function GallerySection() {
               alt={galleryItems[lightbox].label}
               style={{ maxWidth:'90vw', maxHeight:'82vh', objectFit:'contain', display:'block' }}
             />
-            <div style={{ background:'rgba(10,4,0,.9)', padding:'.875rem 1.5rem', textAlign:'center' }}>
+            <div style={{ background:'rgba(0,0,0,.85)', padding:'.875rem 1.5rem', textAlign:'center' }}>
               <p style={{ fontFamily:'var(--font-cinzel),serif', color:'white', fontWeight:600, fontSize:'.9rem' }}>{galleryItems[lightbox].label}</p>
               <p style={{ fontSize:'.72rem', color:'rgba(255,255,255,.4)', marginTop:'.25rem' }}>{lightbox + 1} / {galleryItems.length}</p>
             </div>

@@ -17,14 +17,33 @@ export async function POST(req) {
 
     // ── Save to DB based on type ──
     if (type === 'donation') {
-      const { campaign_id, seva_type, full_name, email, phone, amount, message } = data;
+      const { campaign_id, seva_type, full_name, email, phone, address, pin, pan, amount, message } = data;
       await pool.query(
-        'INSERT INTO donation_submissions (campaign_id,seva_type,full_name,email,phone,amount,message,razorpay_order_id,razorpay_payment_id,status) VALUES (?,?,?,?,?,?,?,?,?,?)',
-        [campaign_id||null, seva_type, full_name, email, phone, amount||0, message||'', order_id, payment_id, 'confirmed']
+        'INSERT INTO donation_submissions (campaign_id,seva_type,full_name,email,phone,address,pin,pan,amount,message,razorpay_order_id,razorpay_payment_id,status) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)',
+        [campaign_id||null, seva_type, full_name, email, phone, address||'', pin||'', pan||'', amount||0, message||'', order_id, payment_id, 'confirmed']
       );
-      // Send emails
       const { sendDonationEmails } = await import('@/lib/email');
-      await sendDonationEmails({ full_name, email, phone, seva_type, amount, message, payment_id });
+      await sendDonationEmails({ full_name, email, phone, address, pin, pan, seva_type, amount, message, payment_id });
+    }
+
+    if (type === 'life_membership') {
+      const { full_name, email, phone, address, city, state, country, date_of_birth, notes, amount } = data;
+      await pool.query(
+        'INSERT INTO life_membership_applications (full_name,email,phone,address,city,state,country,date_of_birth,notes,amount,razorpay_order_id,razorpay_payment_id,payment_status) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)',
+        [full_name, email, phone, address||'', city||'', state||'', country||'India', date_of_birth||null, notes||'', amount||0, order_id, payment_id, 'confirmed']
+      );
+      const { sendLifeMembershipEmails } = await import('@/lib/email');
+      await sendLifeMembershipEmails({ full_name, email, phone, city, state, amount, payment_id });
+    }
+
+    if (type === 'life_membership_donation') {
+      const { full_name, email, phone, amount, message } = data;
+      await pool.query(
+        'INSERT INTO life_membership_donations (full_name,email,phone,amount,message,razorpay_order_id,razorpay_payment_id,payment_status) VALUES (?,?,?,?,?,?,?,?)',
+        [full_name, email, phone, amount||0, message||'', order_id, payment_id, 'confirmed']
+      );
+      const { sendDonationEmails } = await import('@/lib/email');
+      await sendDonationEmails({ full_name, email, phone, address:'', pin:'', pan:'', seva_type:'Life Membership Page Donation', amount, message, payment_id });
     }
 
     if (type === 'booking') {
