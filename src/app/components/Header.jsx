@@ -199,8 +199,8 @@ export default function Header() {
               {/* Contact — plain link */}
               <Link href="/contact" className="nav-link" style={{ fontSize:'.95rem', fontWeight:600 }}>Contact</Link>
 
-              {/* Life Membership */}
-              <Link href="/life-membership" className="nav-link" style={{ fontSize:'.95rem', fontWeight:600 }}>Life Membership</Link>
+              {/* Life Membership — uncomment to enable */}
+              {/* <Link href="/life-membership" className="nav-link" style={{ fontSize:'.95rem', fontWeight:600 }}>Life Membership</Link> */}
             </nav>
 
             {/* CTA + Hamburger */}
@@ -260,7 +260,8 @@ export default function Header() {
 
           <div style={{ height:'1px', background:'rgba(237,104,0,.12)', margin:'.75rem 0' }} />
           <Link href="/contact" className="mobile-nav-link" style={{ fontSize:'1.5rem' }}>Contact</Link>
-          <Link href="/life-membership" className="mobile-nav-link" style={{ fontSize:'1.5rem', color:'#c45500', fontWeight:700 }}>🌸 Life Membership</Link>
+          {/* Life Membership — uncomment to enable */}
+          {/* <Link href="/life-membership" className="mobile-nav-link" style={{ fontSize:'1.5rem', color:'#c45500', fontWeight:700 }}>🌸 Life Membership</Link> */}
 
           <Link href="/donation" className="btn-primary" style={{ marginTop:'1.5rem', justifyContent:'center' }}>🙏 Donate Now</Link>
         </div>

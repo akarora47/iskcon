@@ -12,7 +12,7 @@ const navItems = [
   { href: '/admin/inquiries',    label: 'Inquiries',      icon: '✉️' },
   { href: '/admin/popup',           label: 'Event Popup',    icon: '🎯' },
   { href: '/admin/temple-projects',  label: 'Temple Project',   icon: '🛕' },
-  { href: '/admin/life-membership',  label: 'Life Membership',  icon: '🌸' },
+  // { href: '/admin/life-membership',  label: 'Life Membership',  icon: '🌸' }, // uncomment to enable
 ];
 
 export default function AdminSidebar({ adminName }) {
