@@ -16,10 +16,10 @@ export async function POST(req) {
   if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   try {
     const body = await req.json();
-    const { title, title_hi, icon, description, description_hi, goal_amount, raised_amount, image, featured, active } = body;
+    const { title, title_hi, icon, description, description_hi, goal_amount, raised_amount, image, featured, active, amount_type } = body;
     const [result] = await pool.query(
-      'INSERT INTO seva_campaigns (title,title_hi,icon,description,description_hi,goal_amount,raised_amount,image,featured,active) VALUES (?,?,?,?,?,?,?,?,?,?)',
-      [title, title_hi, icon||'🌸', description, description_hi, goal_amount||0, raised_amount||0, image, featured?1:0, active?1:0]
+      'INSERT INTO seva_campaigns (title,title_hi,icon,description,description_hi,goal_amount,raised_amount,image,featured,active,amount_type) VALUES (?,?,?,?,?,?,?,?,?,?,?)',
+      [title, title_hi, icon||'🌸', description, description_hi, goal_amount||0, raised_amount||0, image, featured?1:0, active?1:0, amount_type||'variable']
     );
     return NextResponse.json({ id: result.insertId }, { status: 201 });
   } catch (e) {

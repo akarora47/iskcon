@@ -8,17 +8,17 @@ export const metadata = {
 };
 
 const socials = [
-  { icon: '📘', name: 'Facebook',  handle: '@ISKCONAyodhya',         href: 'https://facebook.com/ISKCONAyodhya' },
-  { icon: '📸', name: 'Instagram', handle: '@iskcon_ayodhya',         href: 'https://instagram.com/iskcon_ayodhya' },
-  { icon: '▶️', name: 'YouTube',  handle: 'ISKCON Ayodhya Official', href: 'https://youtube.com/@ISKCONAyodhya' },
-  { icon: '💬', name: 'WhatsApp', handle: '+91 95173 12508',          href: 'https://wa.me/919517312508' },
+  { icon: '📘', name: 'Facebook',  handle: 'ayodhya.iskcon',    href: 'https://www.facebook.com/ayodhya.iskcon/' },
+  { icon: '📸', name: 'Instagram', handle: '@iskcon_ayodhya_',  href: 'https://www.instagram.com/iskcon_ayodhya_/' },
+  { icon: '▶️', name: 'YouTube',  handle: '@iskconayodhya',    href: 'https://youtube.com/@iskconayodhya' },
+  { icon: '💬', name: 'WhatsApp', handle: 'Join Channel',       href: 'https://whatsapp.com/channel/0029VaxoenoDTkK4PrgDiK1I' },
 ];
 
 const heroCards = [
-  { icon: '📍', title: 'Address',    value: 'ISKCON Ayodhya, Ram Nagar, Faizabad, Uttar Pradesh 224001' },
+  { icon: '📍', title: 'Address',    value: 'ISKCON Ayodhya, Ram Nagar, Faizabad, Uttar Pradesh 224001, India' },
   { icon: '📞', title: 'Phone',      value: '+91 95173 12508 / +91 63870 21220' },
   { icon: '✉️', title: 'Email',      value: 'info@iskconayodhya.com' },
-  { icon: '⏰', title: 'Open Hours', value: '6:00 AM – 8:30 PM' },
+  { icon: '⏰', title: 'Open Hours', value: '4:30 AM – 8:30 PM' },
 ];
 
 const faqs = [
@@ -144,9 +144,9 @@ export default function ContactPage() {
                     <span style={{ width: '2rem', height: '2rem', borderRadius: '50%', background: 'rgba(237,104,0,.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1rem', flexShrink: 0 }}>📞</span>
                     +91 63870 21220
                   </a>
-                  <a href="https://wa.me/919517312508" target="_blank" rel="noreferrer" style={{ display: 'flex', alignItems: 'center', gap: '.75rem', fontSize: '.85rem', color: '#25D366', textDecoration: 'none', fontWeight: 600 }}>
+                  <a href="https://whatsapp.com/channel/0029VaxoenoDTkK4PrgDiK1I" target="_blank" rel="noreferrer" style={{ display: 'flex', alignItems: 'center', gap: '.75rem', fontSize: '.85rem', color: '#25D366', textDecoration: 'none', fontWeight: 600 }}>
                     <span style={{ width: '2rem', height: '2rem', borderRadius: '50%', background: 'rgba(37,211,102,.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1rem', flexShrink: 0 }}>💬</span>
-                    WhatsApp Us
+                    WhatsApp Channel
                   </a>
                   <a href="mailto:info@iskconayodhya.com" style={{ display: 'flex', alignItems: 'center', gap: '.75rem', fontSize: '.85rem', color: '#333', textDecoration: 'none', fontWeight: 500 }}>
                     <span style={{ width: '2rem', height: '2rem', borderRadius: '50%', background: 'rgba(237,104,0,.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1rem', flexShrink: 0 }}>✉️</span>

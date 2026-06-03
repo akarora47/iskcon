@@ -26,17 +26,17 @@ export default function AdminDonations() {
 
   useEffect(() => { loadCampaigns(); loadDonations(); }, []);
 
-  const openNew  = () => { setEditItem(null); setForm({ title: '', description: '', goal_amount: '', image: '', featured: false, active: true }); setShowForm(true); };
+  const openNew  = () => { setEditItem(null); setForm({ title: '', description: '', goal_amount: '', image: '', featured: false, active: true, amount_type: 'variable' }); setShowForm(true); };
   const openEdit = (c) => {
     setEditItem(c);
-    setForm({ title: c.title, description: c.description || '', goal_amount: c.goal_amount || '', image: c.image || '', featured: !!c.featured, active: !!c.active });
+    setForm({ title: c.title, description: c.description || '', goal_amount: c.goal_amount || '', image: c.image || '', featured: !!c.featured, active: !!c.active, amount_type: c.amount_type || 'variable' });
     setShowForm(true);
   };
 
   const save = async () => {
     const method = editItem ? 'PUT' : 'POST';
     const url    = editItem ? `/api/campaigns/${editItem.id}` : '/api/campaigns';
-    const payload = { title: form.title, description: form.description, goal_amount: form.goal_amount ? Number(form.goal_amount) : 0, raised_amount: editItem?.raised_amount || 0, image: form.image, featured: form.featured, active: form.active };
+    const payload = { title: form.title, description: form.description, goal_amount: form.goal_amount ? Number(form.goal_amount) : 0, raised_amount: editItem?.raised_amount || 0, image: form.image, featured: form.featured, active: form.active, amount_type: form.amount_type || 'variable' };
     const res = await fetch(url, { method, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
     if (res.ok) success(editItem ? 'Campaign updated!' : 'New campaign created!', editItem ? '✏️ Updated' : '✅ Created');
     else error('Something went wrong.', '❌ Error');
@@ -45,7 +45,7 @@ export default function AdminDonations() {
 
   const toggleActive = async (c) => {
     await fetch(`/api/campaigns/${c.id}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ title: c.title, description: c.description, goal_amount: c.goal_amount, raised_amount: c.raised_amount, image: c.image, featured: c.featured, active: !c.active }) });
+      body: JSON.stringify({ title: c.title, description: c.description, goal_amount: c.goal_amount, raised_amount: c.raised_amount, image: c.image, featured: c.featured, active: !c.active, amount_type: c.amount_type || 'variable' }) });
     success(`"${c.title}" marked ${!c.active ? 'Active' : 'Inactive'}`, '🔄 Status Updated');
     loadCampaigns();
   };
@@ -100,13 +100,18 @@ export default function AdminDonations() {
               <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                 <thead><tr>
                   <th style={sty.th}>Name</th>
-                  <th style={sty.th}>Goal Amount</th><th style={sty.th}>Status</th><th style={sty.th}>Actions</th>
+                  <th style={sty.th}>Amount</th><th style={sty.th}>Type</th><th style={sty.th}>Status</th><th style={sty.th}>Actions</th>
                 </tr></thead>
                 <tbody>
                   {campaigns.map(c => (
                     <tr key={c.id}>
                       <td style={sty.td}><div style={{ fontWeight: 600, color: 'white' }}>{c.title}</div><div style={{ fontSize: '.75rem', color: '#777', marginTop: '.2rem' }}>{c.description?.replace(/<[^>]*>/g, '').slice(0, 60)}…</div></td>
                       <td style={sty.td}>{c.goal_amount ? '₹' + Number(c.goal_amount).toLocaleString('en-IN') : '—'}</td>
+                      <td style={sty.td}>
+                        <span style={{ fontSize: '.72rem', fontWeight: 700, padding: '.25rem .7rem', borderRadius: '2rem', background: c.amount_type === 'fixed' ? 'rgba(239,68,68,.15)' : 'rgba(34,197,94,.12)', color: c.amount_type === 'fixed' ? '#f87171' : '#4ade80' }}>
+                          {c.amount_type === 'fixed' ? '🔒 Fixed' : '✏️ Variable'}
+                        </span>
+                      </td>
                       <td style={sty.td}>
                         <button onClick={() => toggleActive(c)} style={{ padding: '.25rem .8rem', borderRadius: '2rem', border: 'none', cursor: 'pointer', fontWeight: 600, fontSize: '.75rem',
                           background: c.active ? 'rgba(68,204,136,.15)' : 'rgba(255,80,80,.1)',
@@ -168,7 +173,29 @@ export default function AdminDonations() {
                 <label style={sty.label}>Description</label>
                 <RichEditor value={form.description || ''} onChange={(content) => setForm(f => ({ ...f, description: content }))} height={220} />
               </div>
-              <div><label style={sty.label}>Goal Amount (₹)</label><input type="number" style={sty.input} value={form.goal_amount} onChange={e => setForm(f => ({ ...f, goal_amount: e.target.value }))} /></div>
+              <div>
+                <label style={sty.label}>Donation Amount (₹)</label>
+                <input type="number" style={sty.input} value={form.goal_amount} onChange={e => setForm(f => ({ ...f, goal_amount: e.target.value }))} placeholder="e.g. 1500" />
+              </div>
+              <div>
+                <label style={sty.label}>Amount Type</label>
+                <div style={{ display: 'flex', gap: '1rem', marginTop: '.5rem' }}>
+                  <label style={{ display: 'flex', alignItems: 'center', gap: '.6rem', cursor: 'pointer', padding: '.65rem 1.1rem', borderRadius: '.6rem', border: `1.5px solid ${form.amount_type === 'fixed' ? '#ed6800' : 'rgba(255,255,255,.15)'}`, background: form.amount_type === 'fixed' ? 'rgba(237,104,0,.12)' : 'transparent', transition: 'all .2s' }}>
+                    <input type="radio" name="amount_type" value="fixed" checked={form.amount_type === 'fixed'} onChange={() => setForm(f => ({ ...f, amount_type: 'fixed' }))} style={{ accentColor: '#ed6800' }} />
+                    <div>
+                      <p style={{ color: 'white', fontSize: '.85rem', fontWeight: 600, margin: 0 }}>🔒 Fixed</p>
+                      <p style={{ color: 'rgba(255,255,255,.4)', fontSize: '.72rem', margin: 0 }}>User cannot change amount</p>
+                    </div>
+                  </label>
+                  <label style={{ display: 'flex', alignItems: 'center', gap: '.6rem', cursor: 'pointer', padding: '.65rem 1.1rem', borderRadius: '.6rem', border: `1.5px solid ${form.amount_type === 'variable' ? '#ed6800' : 'rgba(255,255,255,.15)'}`, background: form.amount_type === 'variable' ? 'rgba(237,104,0,.12)' : 'transparent', transition: 'all .2s' }}>
+                    <input type="radio" name="amount_type" value="variable" checked={form.amount_type === 'variable'} onChange={() => setForm(f => ({ ...f, amount_type: 'variable' }))} style={{ accentColor: '#ed6800' }} />
+                    <div>
+                      <p style={{ color: 'white', fontSize: '.85rem', fontWeight: 600, margin: 0 }}>✏️ Variable</p>
+                      <p style={{ color: 'rgba(255,255,255,.4)', fontSize: '.72rem', margin: 0 }}>User can edit amount</p>
+                    </div>
+                  </label>
+                </div>
+              </div>
               <ImageUpload
                 label="Campaign Image"
                 value={form.image}

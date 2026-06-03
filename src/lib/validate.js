@@ -35,9 +35,10 @@ export const rules = {
     return '';
   },
 
-  amount: (v) => {
+  amount: (v, min = 1) => {
     if (!v && v !== 0) return 'Donation amount is required';
-    if (isNaN(Number(v)) || Number(v) < 1) return 'Amount must be at least ₹1';
+    if (isNaN(Number(v)) || Number(v) < 1) return 'Please enter a valid amount';
+    if (Number(v) < min) return `Minimum donation amount is ₹${Number(min).toLocaleString('en-IN')}`;
     return '';
   },
 

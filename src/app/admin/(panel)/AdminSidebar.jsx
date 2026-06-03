@@ -10,7 +10,7 @@ const navItems = [
   { href: '/admin/rooms',        label: 'Rooms',          icon: '🛏️' },
   { href: '/admin/donations',    label: 'Donations',      icon: '🌸' },
   { href: '/admin/inquiries',    label: 'Inquiries',      icon: '✉️' },
-  { href: '/admin/popup',           label: 'Event Popup',    icon: '🎯' },
+  // Popup now managed via Events → "Show as Website Popup" checkbox
   { href: '/admin/temple-projects',  label: 'Temple Project',   icon: '🛕' },
   // { href: '/admin/life-membership',  label: 'Life Membership',  icon: '🌸' }, // uncomment to enable
 ];

@@ -5,15 +5,15 @@ import bcrypt from 'bcryptjs';
 
 export async function POST(req) {
   try {
-    const { username, password } = await req.json();
-    const [rows] = await pool.query('SELECT * FROM admin_users WHERE username = ?', [username]);
-    if (!rows.length) return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 });
+    const { email, password } = await req.json();
+    const [rows] = await pool.query('SELECT * FROM admin_users WHERE email = ?', [email?.toLowerCase()?.trim()]);
+    if (!rows.length) return NextResponse.json({ error: 'Invalid email or password' }, { status: 401 });
 
     const admin = rows[0];
     const valid = await bcrypt.compare(password, admin.password_hash);
-    if (!valid) return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 });
+    if (!valid) return NextResponse.json({ error: 'Invalid email or password' }, { status: 401 });
 
-    const token = signToken({ id: admin.id, username: admin.username, name: admin.name });
+    const token = signToken({ id: admin.id, email: admin.email, name: admin.name });
     const res = NextResponse.json({ message: 'Login successful', name: admin.name });
     res.cookies.set('admin_token', token, { httpOnly: true, maxAge: 60 * 60 * 24 * 7, path: '/', sameSite: 'lax' });
     return res;

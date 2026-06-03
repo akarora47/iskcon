@@ -76,23 +76,6 @@ export default async function NewTempleListingPage() {
         </div>
       </section>
 
-      {/* CTA strip */}
-      <section className="sec-saffron">
-        <div className="wrap">
-          <div className="reveal" style={{ textAlign:'center' }}>
-            <p style={{ fontSize:'2.5rem', marginBottom:'1rem' }}>🙏</p>
-            <h2 style={{ fontFamily:'var(--font-cinzel),serif', fontSize:'clamp(1.6rem,3vw,2.4rem)', fontWeight:700, color:'#111', marginBottom:'.75rem' }}>
-              Every Rupee Builds a Sacred Abode
-            </h2>
-            <p style={{ color:'#555', maxWidth:'500px', margin:'0 auto 2rem', lineHeight:1.85 }}>
-              Like the Gilehari who helped Lord Ram by carrying tiny grains of sand, your small contribution becomes part of an eternal legacy.
-            </p>
-            <Link href="/new-temple" style={{ display:'inline-flex', alignItems:'center', padding:'1rem 2.5rem', borderRadius:'2rem', background:'linear-gradient(135deg,#c45500,#ed6800)', color:'white', fontWeight:700, fontSize:'1.05rem', textDecoration:'none', boxShadow:'0 10px 30px rgba(237,104,0,.3)', fontFamily:'var(--font-poppins),sans-serif' }}>
-              🛕 View All Projects
-            </Link>
-          </div>
-        </div>
-      </section>
 
     </main>
   );

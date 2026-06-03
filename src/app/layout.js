@@ -72,10 +72,10 @@ export default async function RootLayout({ children }) {
                   </p>
                   <div style={{ display: 'flex', gap: '.6rem', flexWrap: 'wrap' }}>
                     {[
-                      { label: 'Facebook',  icon: 'f',  href: 'https://facebook.com/ISKCONAyodhya' },
-                      { label: 'Instagram', icon: '✦',  href: 'https://instagram.com/iskcon_ayodhya' },
-                      { label: 'YouTube',   icon: '▶',  href: 'https://youtube.com/@ISKCONAyodhya' },
-                      { label: 'WhatsApp',  icon: '💬', href: 'https://wa.me/919517312508' },
+                      { label: 'Facebook',  icon: 'f',  href: 'https://www.facebook.com/ayodhya.iskcon/' },
+                      { label: 'Instagram', icon: '✦',  href: 'https://www.instagram.com/iskcon_ayodhya_/' },
+                      { label: 'YouTube',   icon: '▶',  href: 'https://youtube.com/@iskconayodhya' },
+                      { label: 'WhatsApp',  icon: '💬', href: 'https://whatsapp.com/channel/0029VaxoenoDTkK4PrgDiK1I' },
                     ].map((s) => (
                       <a key={s.label} href={s.href} target="_blank" rel="noreferrer" className="footer-social" title={s.label}
                         style={{ fontFamily: 'var(--font-poppins)', fontWeight: 700, fontSize: '.8rem' }}>
@@ -101,13 +101,13 @@ export default async function RootLayout({ children }) {
                 <div>
                   <p className="footer-head">Contact Us</p>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '.75rem' }}>
-                    <p style={{ fontSize: '.84rem', color: 'rgba(255,255,255,.5)', lineHeight: 1.6 }}>📍 Ram Nagar, Faizabad<br />Uttar Pradesh – 224001</p>
+                    <p style={{ fontSize: '.84rem', color: 'rgba(255,255,255,.5)', lineHeight: 1.6 }}>📍 ISKCON Ayodhya, Ram Nagar,<br />Faizabad, Uttar Pradesh 224001, India</p>
                     <a href="tel:+919517312508" style={{ fontSize: '.84rem', color: 'rgba(255,255,255,.5)', textDecoration: 'none', transition: 'color .2s' }}>📞 +91 95173 12508</a>
                     <a href="tel:+916387021220" style={{ fontSize: '.84rem', color: 'rgba(255,255,255,.5)', textDecoration: 'none', transition: 'color .2s' }}>📞 +91 63870 21220</a>
                     <a href="mailto:info@iskconayodhya.com" style={{ fontSize: '.84rem', color: 'rgba(255,255,255,.5)', textDecoration: 'none' }}>✉️ info@iskconayodhya.com</a>
-                    <a href="https://wa.me/919517312508" target="_blank" rel="noreferrer"
-                      style={{ fontSize: '.84rem', color: '#25D366', textDecoration: 'none', fontWeight: 600 }}>💬 WhatsApp Us</a>
-                    <p style={{ fontSize: '.84rem', color: 'rgba(255,255,255,.4)' }}>⏰ 6:00 AM – 8:30 PM Daily</p>
+                    <a href="https://whatsapp.com/channel/0029VaxoenoDTkK4PrgDiK1I" target="_blank" rel="noreferrer"
+                      style={{ fontSize: '.84rem', color: '#25D366', textDecoration: 'none', fontWeight: 600 }}>💬 WhatsApp Channel</a>
+                    <p style={{ fontSize: '.84rem', color: 'rgba(255,255,255,.4)' }}>⏰ 4:30 AM – 8:30 PM Daily</p>
                   </div>
                 </div>
 

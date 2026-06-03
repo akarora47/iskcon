@@ -47,7 +47,7 @@ export default async function Home() {
       {/* SECTION 1 — HERO */}
       <section className="hero-dark">
         <div className="hero-pattern" />
-        <div className="hero-om-bg">ॐ</div>
+        <div className="hero-om-bg">हरे कृष्ण</div>
         <div className="hero-star-bg">✦</div>
         <div className="hero-ring" style={{ top: '15%', left: '8%', width: '180px', height: '180px', animationDelay: '3s' }} />
         <div className="hero-ring" style={{ top: '55%', right: '15%', width: '100px', height: '100px', animationDelay: '7s', borderColor: 'rgba(196,85,0,.08)' }} />
@@ -74,13 +74,12 @@ export default async function Home() {
               </div>
               <div style={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap', marginTop: '3rem', paddingTop: '2rem', borderTop: '1px solid rgba(196,85,0,.1)' }}>
                 {[
-                  { label: 'Darshan', value: '6 AM – 8:30 PM' },
-                  { label: 'Prasadam', value: 'Daily & Free' },
-                  { label: 'Location', value: 'Ayodhya Dham, UP' },
+                  { label: 'Darshan', value: '4:30 AM – 8:30 PM' },
+                  { label: 'Location', value: 'Ram Nagar, Faizabad, UP 224001' },
                 ].map((info) => (
-                  <div key={info.label}>
+                  <div key={info.label} style={{ minWidth: 0 }}>
                     <p style={{ fontSize: '.68rem', fontWeight: 600, letterSpacing: '.15em', textTransform: 'uppercase', color: '#555', marginBottom: '.2rem', fontFamily: 'var(--font-poppins)' }}>{info.label}</p>
-                    <p style={{ fontSize: '.85rem', color: '#333', fontFamily: 'var(--font-poppins)', fontWeight: 500 }}>{info.value}</p>
+                    <p style={{ fontSize: '.85rem', color: '#333', fontFamily: 'var(--font-poppins)', fontWeight: 500, wordBreak: 'break-word' }}>{info.value}</p>
                   </div>
                 ))}
               </div>

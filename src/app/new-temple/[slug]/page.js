@@ -1,7 +1,6 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import TempleProjectClient from '../../components/TempleProjectClient';
-import GilehriSevaSection from '../../components/GilehriSevaSection';
 
 async function getProject(slug) {
   try {
@@ -44,8 +43,7 @@ export default async function TempleProjectDetailPage({ params }) {
   const [project, allProjects] = await Promise.all([getProject(slug), getAllProjects()]);
   if (!project) notFound();
 
-  const stats    = project.stats || {};
-  const gilehri  = project.gilehri;
+  const stats       = project.stats || {};
   const donSettings = project.donationSettings;
   const sc = STATUS_COLOR[project.construction_status] || STATUS_COLOR['In Progress'];
   const others = allProjects.filter(p => p.slug !== slug).slice(0, 3);
@@ -103,7 +101,7 @@ export default async function TempleProjectDetailPage({ params }) {
       {/* ══ MAIN CONTENT ══ */}
       <section style={{ padding:'4rem 0' }}>
         <div className="wrap">
-          <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(min(100%,320px),1fr))', gap:'2.5rem', alignItems:'start' }}>
+          <div className="temple-detail-grid">
 
             {/* ── LEFT COLUMN ── */}
             <div>
@@ -117,7 +115,8 @@ export default async function TempleProjectDetailPage({ params }) {
 
               {/* About */}
               <h2 style={{ fontFamily:'var(--font-cinzel),serif', fontSize:'1.15rem', fontWeight:700, color:'#111', marginBottom:'1rem' }}>About This Project</h2>
-              <p style={{ fontSize:'.95rem', lineHeight:1.95, color:'#444', marginBottom:'2rem' }}>{project.about_content || project.description}</p>
+              <div style={{ fontSize:'.95rem', lineHeight:1.95, color:'#444', marginBottom:'2rem' }}
+                dangerouslySetInnerHTML={{ __html: project.about_content || project.description || '' }} />
 
 
               {/* Stats */}
@@ -145,8 +144,8 @@ export default async function TempleProjectDetailPage({ params }) {
 
             </div>
 
-            {/* ── RIGHT COLUMN (sticky) ── */}
-            <div id="donate" style={{ display:'flex', flexDirection:'column', gap:'1.25rem' }}>
+            {/* ── RIGHT COLUMN ── */}
+            <div id="donate">
               <TempleProjectClient
                 projectTitle={project.title}
                 projectSlug={project.slug}
@@ -158,8 +157,15 @@ export default async function TempleProjectDetailPage({ params }) {
         </div>
       </section>
 
-      {/* ══ GILEHRI SEVA ══ */}
-      <GilehriSevaSection gilehri={gilehri} projectTitle={project.title} />
+      <style>{`
+        .temple-detail-grid { display:grid; grid-template-columns:1fr 380px; gap:2.5rem; align-items:start; }
+        .temple-detail-grid > div:last-child { position:sticky; top:6rem; display:flex; flex-direction:column; gap:1.25rem; }
+        @media (max-width:768px) {
+          .temple-detail-grid { grid-template-columns:1fr; gap:2rem; }
+          .temple-detail-grid > div:last-child { position:static; }
+        }
+        .detail-card-link:hover { border-color:rgba(237,104,0,.3) !important; box-shadow:0 4px 20px rgba(237,104,0,.1); transform:translateY(-2px); }
+      `}</style>
 
       {/* ══ OTHER PROJECTS ══ */}
       {others.length > 0 && (
@@ -183,7 +189,6 @@ export default async function TempleProjectDetailPage({ params }) {
               ))}
             </div>
           </div>
-          <style>{`.detail-card-link:hover { border-color:rgba(237,104,0,.3) !important; box-shadow:0 4px 20px rgba(237,104,0,.1); transform:translateY(-2px); }`}</style>
         </section>
       )}
 

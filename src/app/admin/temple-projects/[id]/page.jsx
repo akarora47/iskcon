@@ -8,7 +8,7 @@ const iS = { width:'100%', background:'rgba(255,255,255,.05)', border:'1.5px sol
 const lS = { display:'block', fontSize:'.75rem', fontWeight:600, color:'rgba(255,255,255,.45)', textTransform:'uppercase', letterSpacing:'.08em', marginBottom:'.4rem' };
 const card = { background:'#1a0d00', border:'1px solid rgba(237,104,0,.2)', borderRadius:'1rem', padding:'1.75rem', marginBottom:'1.25rem' };
 
-const TABS = ['Details', 'Gilehri Seva', 'Donation Settings'];
+const TABS = ['Details', 'Donation Settings'];
 
 export default function EditTempleProject({ params }) {
   const { id } = use(params);
@@ -94,9 +94,7 @@ export default function EditTempleProject({ params }) {
 
   const SaveBtn = () => (
     <button type="button" onClick={
-      tab==='Gilehri Seva' ? saveGilehri :
-      tab==='Donation Settings' ? saveDonation :
-      saveDetails
+      tab==='Donation Settings' ? saveDonation : saveDetails
     } disabled={saving} style={{ padding:'.85rem 2.5rem', borderRadius:'.875rem', border:'none', background:saving?'rgba(237,104,0,.4)':'linear-gradient(135deg,#c45500,#ed6800)', color:'white', fontWeight:700, cursor:saving?'not-allowed':'pointer', fontSize:'.9rem', marginTop:'1.25rem', width:'100%' }}>
       {saving ? '⏳ Saving…' : '💾 Save Changes'}
     </button>
@@ -131,9 +129,8 @@ export default function EditTempleProject({ params }) {
           <div style={card}>
             <h3 style={{ color:'#ed6800', fontSize:'.85rem', fontWeight:700, textTransform:'uppercase', letterSpacing:'.08em', marginBottom:'1.25rem', marginTop:0 }}>Basic Info</h3>
             <div style={{ marginBottom:'1rem' }}><label style={lS}>Project Name *</label><input required style={iS} value={form.title||''} onChange={e=>fset('title',e.target.value)} /></div>
-            <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(220px,1fr))', gap:'1rem', marginBottom:'1rem' }}>
-              <div><label style={lS}>Subtitle</label><input style={iS} value={form.subtitle||''} onChange={e=>fset('subtitle',e.target.value)} /></div>
-              <div><label style={lS}>Tagline</label><input style={iS} value={form.tagline||''} onChange={e=>fset('tagline',e.target.value)} /></div>
+            <div style={{ marginBottom:'1rem' }}>
+              <label style={lS}>Subtitle</label><input style={iS} value={form.subtitle||''} onChange={e=>fset('subtitle',e.target.value)} />
             </div>
             <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(220px,1fr))', gap:'1rem', marginBottom:'1rem' }}>
               <div><label style={lS}>Location</label><input style={iS} value={form.location||''} onChange={e=>fset('location',e.target.value)} placeholder="Ayodhya, Uttar Pradesh" /></div>
@@ -224,16 +221,6 @@ export default function EditTempleProject({ params }) {
           </div>
 
           <div style={card}>
-            <h3 style={{ color:'#ed6800', fontSize:'.85rem', fontWeight:700, textTransform:'uppercase', letterSpacing:'.08em', marginBottom:'1.25rem', marginTop:0 }}>CTA Section</h3>
-            <div style={{ marginBottom:'1rem' }}><label style={lS}>CTA Title</label><input style={iS} value={form.cta_title||''} onChange={e=>fset('cta_title',e.target.value)} /></div>
-            <div style={{ marginBottom:'1rem' }}><label style={lS}>CTA Description</label><textarea rows={3} style={{ ...iS, resize:'vertical' }} value={form.cta_description||''} onChange={e=>fset('cta_description',e.target.value)} /></div>
-            <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(200px,1fr))', gap:'1rem' }}>
-              <div><label style={lS}>Button Text</label><input style={iS} value={form.cta_btn_text||''} onChange={e=>fset('cta_btn_text',e.target.value)} /></div>
-              <div><label style={lS}>Button Link</label><input style={iS} value={form.cta_btn_link||''} onChange={e=>fset('cta_btn_link',e.target.value)} /></div>
-            </div>
-          </div>
-
-          <div style={card}>
             <h3 style={{ color:'#ed6800', fontSize:'.85rem', fontWeight:700, textTransform:'uppercase', letterSpacing:'.08em', marginBottom:'1.25rem', marginTop:0 }}>SEO</h3>
             <div style={{ marginBottom:'1rem' }}><label style={lS}>Meta Title</label><input style={iS} value={form.meta_title||''} onChange={e=>fset('meta_title',e.target.value)} /></div>
             <div><label style={lS}>Meta Description <span style={{ textTransform:'none', color:'rgba(255,255,255,.25)' }}>(max 160 chars)</span></label><textarea rows={2} style={{ ...iS, resize:'vertical' }} value={form.meta_description||''} onChange={e=>fset('meta_description',e.target.value)} maxLength={160} /></div>
@@ -241,43 +228,6 @@ export default function EditTempleProject({ params }) {
 
           <SaveBtn />
         </>
-      )}
-
-      {/* ── GILEHRI SEVA TAB ── */}
-      {tab === 'Gilehri Seva' && (
-        <div style={card}>
-          <h3 style={{ color:'#ed6800', fontSize:'.85rem', fontWeight:700, textTransform:'uppercase', letterSpacing:'.08em', marginBottom:'1.25rem', marginTop:0 }}>Gilehri Seva Content</h3>
-          <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(220px,1fr))', gap:'1rem', marginBottom:'1rem' }}>
-            <div><label style={lS}>Title</label><input style={iS} value={gilehri.title||''} onChange={e=>gset('title',e.target.value)} /></div>
-            <div><label style={lS}>Badge Text</label><input style={iS} value={gilehri.badge_text||''} onChange={e=>gset('badge_text',e.target.value)} /></div>
-          </div>
-          <div style={{ marginBottom:'1rem' }}><label style={lS}>Subtitle</label><input style={iS} value={gilehri.subtitle||''} onChange={e=>gset('subtitle',e.target.value)} /></div>
-          <div style={{ marginBottom:'1rem' }}>
-            <label style={lS}>Description</label>
-            <textarea rows={4} style={{ ...iS, resize:'vertical', minHeight:'90px' }} value={gilehri.description||''} onChange={e=>gset('description',e.target.value)} />
-          </div>
-          <div style={{ marginBottom:'1rem' }}>
-            <ImageUpload value={gilehri.image||''} onChange={v=>gset('image',v)} label="Seva Image" />
-          </div>
-          <div style={{ marginBottom:'1rem' }}>
-            <label style={lS}>Benefits <span style={{ textTransform:'none', color:'rgba(255,255,255,.25)' }}>(one per line)</span></label>
-            <textarea rows={5} style={{ ...iS, resize:'vertical' }}
-              value={Array.isArray(gilehri.benefits)?gilehri.benefits.join('\n'):(gilehri.benefits||'')}
-              onChange={e=>gset('benefits',e.target.value)} placeholder={'Earn the blessings of Lord Ram\nParticipate in ancient tradition'} />
-          </div>
-          <div style={{ marginBottom:'1rem' }}>
-            <label style={lS}>Suggested Donation Amounts <span style={{ textTransform:'none', color:'rgba(255,255,255,.25)' }}>(comma-separated)</span></label>
-            <input style={iS}
-              value={Array.isArray(gilehri.suggested_amounts)?gilehri.suggested_amounts.join(','):(gilehri.suggested_amounts||'')}
-              onChange={e=>gset('suggested_amounts',e.target.value.split(',').map(v=>Number(v.trim())).filter(Boolean))}
-              placeholder="101,251,501,1001,2101,5100" />
-          </div>
-          <div style={{ marginBottom:'1rem' }}><label style={lS}>CTA Button Text</label><input style={iS} value={gilehri.cta_text||''} onChange={e=>gset('cta_text',e.target.value)} /></div>
-          <label style={{ display:'flex', alignItems:'center', gap:'.5rem', color:'rgba(255,255,255,.6)', fontSize:'.88rem', cursor:'pointer' }}>
-            <input type="checkbox" checked={!!gilehri.enabled} onChange={e=>gset('enabled',e.target.checked)} /> Show on website
-          </label>
-          <SaveBtn />
-        </div>
       )}
 
       {/* ── DONATION SETTINGS TAB ── */}

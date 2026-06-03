@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import SevaInlineForm from '../../components/SevaInlineForm';
+import pool from '@/lib/db';
 
 const ALL_SEVAS = [
   { slug:'gaushala-seva',      icon:'🐄', title:'GauShala Seva',     amount:'Rs.1,500', amountNum:1500, image:'/gaushala.jpg',           desc:'Our GauShala is home to over 50 sacred cows and calves, each considered dear to Lord Krishna. Your donation provides nutritious feed, veterinary care, and safe shelter for these gentle creatures — sustaining one of the most ancient and sacred traditions of Vedic culture.',     impact:'Nourishes 1 sacred cow for a full week — fodder, clean water, and veterinary care.' },
@@ -14,7 +15,7 @@ const ALL_SEVAS = [
 
 const contactLinks = [
   { href:'tel:+919517312508',                    icon:'📞', label:'+91 95173 12508',  color:'#333',     bg:'rgba(237,104,0,.1)'      },
-  { href:'https://wa.me/919517312508',           icon:'💬', label:'WhatsApp Us',      color:'#25D366',  bg:'rgba(37,211,102,.1)',  ext:true },
+  { href:'https://whatsapp.com/channel/0029VaxoenoDTkK4PrgDiK1I', icon:'💬', label:'WhatsApp Channel', color:'#25D366', bg:'rgba(37,211,102,.1)', ext:true },
   { href:'/contact',                             icon:'📩', label:'Send Inquiry',     color:'#ed6800',  bg:'rgba(237,104,0,.1)'      },
 ];
 
@@ -25,11 +26,21 @@ export async function generateMetadata({ params }) {
   return { title: `${seva.title} | ISKCON Ayodhya`, description: seva.desc.slice(0, 155) };
 }
 
+async function getCampaignAmountType(title) {
+  try {
+    const [rows] = await pool.query('SELECT amount_type, goal_amount FROM seva_campaigns WHERE title = ? AND active = 1 LIMIT 1', [title]);
+    if (rows[0]) return { amount_type: rows[0].amount_type || 'variable', db_amount: rows[0].goal_amount };
+  } catch {}
+  return { amount_type: 'variable', db_amount: null };
+}
+
 export default async function SevaDetailPage({ params }) {
   const { slug } = await params;
   const seva = ALL_SEVAS.find(s => s.slug === slug);
   if (!seva) notFound();
   const others = ALL_SEVAS.filter(s => s.slug !== slug).slice(0, 3);
+  const { amount_type, db_amount } = await getCampaignAmountType(seva.title);
+  const finalAmount = db_amount ? Number(db_amount) : seva.amountNum;
 
   return (
     <main style={{ overflow:'hidden', background:'#fafaf8' }}>
@@ -127,7 +138,7 @@ export default async function SevaDetailPage({ params }) {
                   <p style={{ fontSize:'.75rem', color:'rgba(255,255,255,.75)' }}>Suggested: {seva.amount}</p>
                 </div>
                 <div style={{ padding:'1.75rem' }}>
-                  <SevaInlineForm sevaTitle={seva.title} suggestedAmount={seva.amountNum} />
+                  <SevaInlineForm sevaTitle={seva.title} suggestedAmount={finalAmount} amountType={amount_type} />
                 </div>
               </div>
 

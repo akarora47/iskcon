@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import RichEditor from '../RichEditor';
 import ImageUpload from '../ImageUpload';
@@ -12,13 +12,26 @@ const CATEGORIES = ['Festival', 'Spiritual', 'Education', 'Weekly', 'Cultural', 
 export default function EventForm({ onSubmit, initial = {} }) {
   const [form, setForm] = useState({
     name: '', date: '', month: '', year: '2026',
-    category: 'Festival', description: '', image: '', featured: false, active: true,
+    category: 'Festival', description: '', image: '', featured: false, active: true, show_popup: false,
     ...initial,
-    featured: !!initial.featured,
-    active:   initial.active !== undefined ? !!initial.active : true,
+    featured:   !!initial.featured,
+    active:     initial.active !== undefined ? !!initial.active : true,
+    show_popup: !!initial.show_popup,
   });
   const [saving, setSaving] = useState(false);
+  const [popupEventName, setPopupEventName] = useState(null);
   const set = (k, v) => setForm(f => ({ ...f, [k]: v }));
+
+  useEffect(() => {
+    fetch('/api/popup')
+      .then(r => r.json())
+      .then(d => {
+        if (d && d.id && d.id !== initial.id) {
+          setPopupEventName(d.name || 'Ek aur event');
+        }
+      })
+      .catch(() => {});
+  }, [initial.id]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -89,7 +102,21 @@ export default function EventForm({ onSubmit, initial = {} }) {
             <input type="checkbox" checked={form.active} onChange={e => set('active', e.target.checked)} style={{ width: '1rem', height: '1rem', accentColor: '#ed6800' }} />
             ✅ Active (visible on website)
           </label>
+          <label style={{ display: 'flex', alignItems: 'center', gap: '.6rem', color: popupEventName ? 'rgba(255,255,255,.3)' : form.show_popup ? '#ed6800' : 'rgba(255,255,255,.7)', cursor: popupEventName ? 'not-allowed' : 'pointer', fontSize: '.9rem', fontWeight: form.show_popup ? 700 : 400 }}>
+            <input type="checkbox" checked={form.show_popup} disabled={!!popupEventName} onChange={e => set('show_popup', e.target.checked)} style={{ width: '1rem', height: '1rem', accentColor: '#ed6800', cursor: popupEventName ? 'not-allowed' : 'pointer' }} />
+            🎯 Show as Website Popup
+          </label>
         </div>
+        {popupEventName && (
+          <p style={{ fontSize: '.78rem', color: '#f87171', marginTop: '.75rem', background: 'rgba(248,113,113,.08)', border: '1px solid rgba(248,113,113,.25)', borderRadius: '.6rem', padding: '.6rem .9rem' }}>
+            🔒 Already active for: <strong style={{ color: '#fca5a5' }}>{popupEventName}</strong>. Disable it there first.
+          </p>
+        )}
+        {!popupEventName && form.show_popup && (
+          <p style={{ fontSize: '.78rem', color: '#f59e0b', marginTop: '.75rem', background: 'rgba(245,158,11,.1)', border: '1px solid rgba(245,158,11,.25)', borderRadius: '.6rem', padding: '.6rem .9rem' }}>
+            ⚠️ Saving will disable popup on all other events.
+          </p>
+        )}
       </div>
 
       {/* Actions */}

@@ -30,7 +30,7 @@ export default function TempleProjectDonationForm({ projectTitle, projectSlug, d
 
   const [mode,    setMode]    = useState(normalOn ? 'normal' : 'tile');
   const [tiles,   setTiles]   = useState(1);
-  const [form,    setForm]    = useState({ full_name:'', email:'', phone:'', address:'', pin:'', pan:'', amount: minNormal, message:'' });
+  const [form,    setForm]    = useState({ full_name:'', email:'', phone:'', address:'', pin:'', pan:'', amount: '', message:'' });
   const [errors,  setErrors]  = useState(EMPTY_ERR);
   const [loading, setLoading] = useState(false);
   const [done,    setDone]    = useState(false);
@@ -49,7 +49,7 @@ export default function TempleProjectDonationForm({ projectTitle, projectSlug, d
       phone:     rules.phone(form.phone),
       pin:       rules.pin(form.pin),
       pan:       rules.pan(form.pan),
-      amount:    mode === 'normal' ? rules.amount(form.amount) : (finalAmount >= tilePrice ? '' : 'Select at least 1 tile'),
+      amount:    mode === 'normal' ? rules.amount(form.amount, minNormal) : (finalAmount >= tilePrice ? '' : 'Select at least 1 tile'),
     };
     setErrors(errs);
     return !hasErrors(errs);
@@ -162,7 +162,7 @@ export default function TempleProjectDonationForm({ projectTitle, projectSlug, d
                 ))}
               </div>
               <input type="number" min={minNormal} step="1" style={fInput(errors.amount)} value={form.amount}
-                onChange={set('amount')} onBlur={blur('amount', rules.amount)} placeholder={`₹${minNormal}`} />
+                onChange={set('amount')} onBlur={() => setErrors(er => ({ ...er, amount: rules.amount(form.amount, minNormal) }))} placeholder={`Min ₹${minNormal.toLocaleString('en-IN')}`} />
               {errors.amount && <span style={errMsg}>⚠ {errors.amount}</span>}
             </div>
           )}

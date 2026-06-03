@@ -5,6 +5,12 @@ import Link from 'next/link';
 
 
 const STYLES = `
+@media (max-width: 768px) {
+  .ep-widget { padding: .35rem !important; border-radius: 50% !important; max-width: 3.6rem !important; gap: 0 !important; }
+  .ep-widget-text { display: none !important; }
+  .ep-widget-play { display: none !important; }
+  .ep-widget .ep-bob { animation: none !important; transform: none !important; }
+}
 @keyframes ep-popupIn {
   from { opacity:0; transform:scale(.88) translateY(28px); }
   to   { opacity:1; transform:scale(1)   translateY(0);    }
@@ -78,8 +84,13 @@ export default function EventPopup() {
 
   if (!mounted || !popup) return null;
 
-  const img   = popup.image || '/festival-kirtan.jpg';
-  const venue = [popup.event_date, popup.event_time, popup.event_venue].filter(Boolean).join('  ·  ');
+  // Support both old event_popup table fields and new events table fields
+  const img      = popup.image || '/festival-kirtan.jpg';
+  const title    = popup.name  || popup.title || '';
+  const dateStr  = popup.date && popup.month
+    ? [popup.date, popup.month, popup.year].filter(Boolean).join(' ')
+    : [popup.event_date, popup.event_time, popup.event_venue].filter(Boolean).join('  ·  ');
+  const eventUrl = popup.id ? `/events/${popup.id}` : (popup.btn_link || '/events');
 
   return createPortal(
     <>
@@ -87,26 +98,26 @@ export default function EventPopup() {
         <div style={{position:'fixed',inset:0,zIndex:99998,display:'flex',alignItems:'center',justifyContent:'center',padding:'1rem'}}>
           <div onClick={minimize} style={{position:'absolute',inset:0,background:'rgba(8,3,0,.72)',backdropFilter:'blur(12px)',WebkitBackdropFilter:'blur(12px)'}} />
 
-          <div className="ep-card" role="dialog" aria-modal="true" aria-label={popup.title} style={{position:'relative',width:'100%',maxWidth:'500px',borderRadius:'2rem',overflow:'hidden',boxShadow:'0 50px 120px rgba(0,0,0,.55), 0 0 0 1.5px rgba(237,104,0,.25)'}}>
+          <div className="ep-card" role="dialog" aria-modal="true" aria-label={title} style={{position:'relative',width:'100%',maxWidth:'500px',borderRadius:'2rem',overflow:'hidden',boxShadow:'0 50px 120px rgba(0,0,0,.55), 0 0 0 1.5px rgba(237,104,0,.25)'}}>
 
             <div style={{position:'relative',height:'15rem',overflow:'hidden',background:'#1a0800'}}>
               {!imgLoaded && (
                 <div style={{position:'absolute',inset:0,background:'linear-gradient(90deg,#1a0800 25%,#2d1200 50%,#1a0800 75%)',backgroundSize:'200% 100%',animation:'ep-shimmer 1.4s infinite'}} />
               )}
-              <img src={img} alt={popup.title} onLoad={() => setImgLoaded(true)}
+              <img src={img} alt={title} onLoad={() => setImgLoaded(true)}
                 style={{width:'100%',height:'100%',objectFit:'cover',display:'block',opacity:imgLoaded?1:0,transition:'opacity .5s'}} />
               <div style={{position:'absolute',inset:0,background:'linear-gradient(180deg,rgba(0,0,0,.06) 0%,rgba(8,3,0,.85) 100%)'}} />
               <div style={{position:'absolute',bottom:0,left:0,right:0,height:'2px',background:'linear-gradient(90deg,transparent,#d4af37,#ed6800,#d4af37,transparent)'}} />
 
               <div style={{position:'absolute',bottom:'1.25rem',left:'1.5rem',right:'4rem'}}>
                 <span style={{display:'inline-block',background:'linear-gradient(135deg,#c45500,#ed6800)',color:'white',fontSize:'.67rem',fontWeight:700,padding:'.28rem .88rem',borderRadius:'2rem',textTransform:'uppercase',letterSpacing:'.1em',boxShadow:'0 4px 16px rgba(237,104,0,.45)',marginBottom:'.55rem'}}>
-                  {popup.badge_text || '⭐ Upcoming Event'}
+                  ⭐ Upcoming Event
                 </span>
                 <h2 style={{fontFamily:'var(--font-cinzel),serif',fontSize:'clamp(1.1rem,3vw,1.45rem)',fontWeight:700,color:'white',margin:0,lineHeight:1.18,textShadow:'0 2px 14px rgba(0,0,0,.6)'}}>
-                  {popup.title}
+                  {title}
                 </h2>
-                {popup.subtitle && (
-                  <p style={{color:'rgba(255,255,255,.72)',fontSize:'.8rem',marginTop:'.3rem',marginBottom:0}}>{popup.subtitle}</p>
+                {popup.category && (
+                  <p style={{color:'rgba(255,255,255,.72)',fontSize:'.8rem',marginTop:'.3rem',marginBottom:0}}>{popup.category}</p>
                 )}
               </div>
 
@@ -117,34 +128,31 @@ export default function EventPopup() {
             </div>
 
             <div style={{background:'#fffdf8',padding:'1.75rem'}}>
-              {venue && (
+              {dateStr && (
                 <div style={{display:'flex',alignItems:'center',gap:'.65rem',background:'rgba(237,104,0,.07)',border:'1px solid rgba(237,104,0,.18)',borderRadius:'.9rem',padding:'.72rem 1rem',marginBottom:'1.2rem'}}>
                   <span style={{fontSize:'1.15rem',flexShrink:0}}>📅</span>
-                  <p style={{fontSize:'.82rem',color:'#c45500',fontWeight:600,margin:0,lineHeight:1.4}}>{venue}</p>
+                  <p style={{fontSize:'.82rem',color:'#c45500',fontWeight:600,margin:0,lineHeight:1.4}}>{dateStr}</p>
                 </div>
               )}
 
               {popup.description && (
-                <p style={{fontSize:'.88rem',color:'#444',lineHeight:1.78,marginBottom:'1.25rem',marginTop:0}}>{popup.description}</p>
+                <p style={{fontSize:'.88rem',color:'#444',lineHeight:1.78,marginBottom:'1.25rem',marginTop:0,display:'-webkit-box',WebkitLineClamp:3,WebkitBoxOrient:'vertical',overflow:'hidden'}}
+                  dangerouslySetInnerHTML={{__html: popup.description.replace(/<[^>]+>/g,'').slice(0,180) + (popup.description.length > 180 ? '…' : '')}} />
               )}
 
               <div style={{display:'flex',gap:'.75rem',flexWrap:'wrap'}}>
-                {popup.btn_text && (
-                  <Link href={popup.btn_link||'/events'} onClick={minimize}
-                    style={{flex:1,minWidth:'130px',display:'flex',alignItems:'center',justifyContent:'center',padding:'.82rem 1.25rem',borderRadius:'2rem',background:'linear-gradient(135deg,#c45500,#ed6800)',color:'white',fontWeight:700,fontSize:'.88rem',textDecoration:'none',boxShadow:'0 8px 24px rgba(237,104,0,.38)',transition:'filter .2s, transform .2s',fontFamily:'var(--font-poppins),sans-serif'}}
-                    onMouseEnter={e=>{e.currentTarget.style.filter='brightness(1.12)';e.currentTarget.style.transform='translateY(-1px)';}}
-                    onMouseLeave={e=>{e.currentTarget.style.filter='brightness(1)';e.currentTarget.style.transform='translateY(0)';}}>
-                    {popup.btn_text}
-                  </Link>
-                )}
-                {popup.btn2_text && (
-                  <Link href={popup.btn2_link||'/events'} onClick={minimize}
-                    style={{padding:'.82rem 1.25rem',borderRadius:'2rem',border:'2px solid rgba(237,104,0,.28)',background:'transparent',color:'#ed6800',fontWeight:600,fontSize:'.88rem',textDecoration:'none',transition:'border-color .2s',display:'flex',alignItems:'center',fontFamily:'var(--font-poppins),sans-serif'}}
-                    onMouseEnter={e=>e.currentTarget.style.borderColor='rgba(237,104,0,.6)'}
-                    onMouseLeave={e=>e.currentTarget.style.borderColor='rgba(237,104,0,.28)'}>
-                    {popup.btn2_text}
-                  </Link>
-                )}
+                <Link href={eventUrl} onClick={minimize}
+                  style={{flex:1,minWidth:'130px',display:'flex',alignItems:'center',justifyContent:'center',padding:'.82rem 1.25rem',borderRadius:'2rem',background:'linear-gradient(135deg,#c45500,#ed6800)',color:'white',fontWeight:700,fontSize:'.88rem',textDecoration:'none',boxShadow:'0 8px 24px rgba(237,104,0,.38)',transition:'filter .2s, transform .2s',fontFamily:'var(--font-poppins),sans-serif'}}
+                  onMouseEnter={e=>{e.currentTarget.style.filter='brightness(1.12)';e.currentTarget.style.transform='translateY(-1px)';}}
+                  onMouseLeave={e=>{e.currentTarget.style.filter='brightness(1)';e.currentTarget.style.transform='translateY(0)';}}>
+                  🙏 Register Free
+                </Link>
+                <Link href={eventUrl} onClick={minimize}
+                  style={{padding:'.82rem 1.25rem',borderRadius:'2rem',border:'2px solid rgba(237,104,0,.28)',background:'transparent',color:'#ed6800',fontWeight:600,fontSize:'.88rem',textDecoration:'none',transition:'border-color .2s',display:'flex',alignItems:'center',fontFamily:'var(--font-poppins),sans-serif'}}
+                  onMouseEnter={e=>e.currentTarget.style.borderColor='rgba(237,104,0,.6)'}
+                  onMouseLeave={e=>e.currentTarget.style.borderColor='rgba(237,104,0,.28)'}>
+                  Know More
+                </Link>
               </div>
 
               <p style={{textAlign:'center',fontSize:'.7rem',color:'#ccc',marginTop:'.9rem',marginBottom:0}}>
@@ -156,7 +164,7 @@ export default function EventPopup() {
       )}
 
       {state === 'mini' && (
-        <button onClick={reopen} aria-label={`View upcoming event: ${popup.title}`} className="ep-widget"
+        <button onClick={reopen} aria-label={'View upcoming event: ' + title} className="ep-widget"
           style={{position:'fixed',bottom:'1.5rem',right:'1.5rem',zIndex:99997,display:'flex',alignItems:'center',gap:'.8rem',padding:'.6rem 1rem .6rem .6rem',borderRadius:'3rem',background:'linear-gradient(135deg,#140800 0%,#2a1000 100%)',border:'1.5px solid rgba(237,104,0,.4)',cursor:'pointer',maxWidth:'260px',transition:'transform .2s, filter .2s',outline:'none'}}
           onMouseEnter={e=>{e.currentTarget.style.transform='scale(1.05) translateY(-2px)';e.currentTarget.style.filter='brightness(1.18)';}}
           onMouseLeave={e=>{e.currentTarget.style.transform='scale(1) translateY(0)';e.currentTarget.style.filter='brightness(1)';}}>
@@ -168,19 +176,19 @@ export default function EventPopup() {
             <div style={{position:'absolute',bottom:'1px',right:'1px',width:'.62rem',height:'.62rem',borderRadius:'50%',background:'#4ade80',border:'2px solid #140800',boxShadow:'0 0 7px #4ade80'}} />
           </div>
 
-          <div style={{textAlign:'left',minWidth:0,flex:1}}>
+          <div className="ep-widget-text" style={{textAlign:'left',minWidth:0,flex:1}}>
             <p style={{fontSize:'.6rem',fontWeight:700,color:'#ed6800',textTransform:'uppercase',letterSpacing:'.1em',margin:0,marginBottom:'.12rem'}}>
-              {popup.badge_text || '⭐ Upcoming Event'}
+              ⭐ Upcoming Event
             </p>
             <p style={{fontSize:'.8rem',fontWeight:700,color:'white',margin:0,overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap',maxWidth:'145px'}}>
-              {popup.title}
+              {title}
             </p>
-            {popup.event_date && (
-              <p style={{fontSize:'.65rem',color:'rgba(255,255,255,.45)',margin:0,marginTop:'.1rem'}}>📅 {popup.event_date}</p>
+            {dateStr && (
+              <p style={{fontSize:'.65rem',color:'rgba(255,255,255,.45)',margin:0,marginTop:'.1rem'}}>📅 {dateStr}</p>
             )}
           </div>
 
-          <div style={{width:'1.6rem',height:'1.6rem',borderRadius:'50%',flexShrink:0,background:'rgba(237,104,0,.22)',display:'flex',alignItems:'center',justifyContent:'center',fontSize:'.7rem',color:'#ed6800'}}>▶</div>
+          <div className="ep-widget-play" style={{width:'1.6rem',height:'1.6rem',borderRadius:'50%',flexShrink:0,background:'rgba(237,104,0,.22)',display:'flex',alignItems:'center',justifyContent:'center',fontSize:'.7rem',color:'#ed6800'}}>▶</div>
         </button>
       )}
     </>,

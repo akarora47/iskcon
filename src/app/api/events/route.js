@@ -16,10 +16,11 @@ export async function POST(req) {
   if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   try {
     const body = await req.json();
-    const { name, name_hi, icon, date, month, year, category, description, description_hi, featured, active } = body;
+    const { name, name_hi, icon, date, month, year, category, description, description_hi, featured, active, show_popup } = body;
+    if (show_popup) await pool.query('UPDATE events SET show_popup = 0');
     const [result] = await pool.query(
-      'INSERT INTO events (name,name_hi,icon,date,month,year,category,description,description_hi,featured,active) VALUES (?,?,?,?,?,?,?,?,?,?,?)',
-      [name, name_hi, icon||'🎪', date, month, year||'2026', category, description, description_hi, featured?1:0, active?1:0]
+      'INSERT INTO events (name,name_hi,icon,date,month,year,category,description,description_hi,featured,active,show_popup) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)',
+      [name, name_hi, icon||'🎪', date, month, year||'2026', category, description, description_hi, featured?1:0, active?1:0, show_popup?1:0]
     );
     return NextResponse.json({ id: result.insertId, message: 'Event created' }, { status: 201 });
   } catch (e) {

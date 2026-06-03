@@ -49,7 +49,7 @@ export default function EventHeroBtns() {
         <button onClick={() => { setSubmitted(false); setForm({ event_id:'', event_name:'', first_name:'', last_name:'', email:'', phone:'', attendees:'1', city:'', special_requests:'' }); setModal(true); }} className="btn-primary" style={{ border:'none', cursor:'pointer' }}>
           📋 Register for Events
         </button>
-        <button onClick={scrollToSchedule} className="btn-outline-light" style={{ cursor:'pointer' }}>
+        <button onClick={scrollToSchedule} className="btn-outline" style={{ cursor:'pointer' }}>
           🪔 Aarti Schedule
         </button>
       </div>

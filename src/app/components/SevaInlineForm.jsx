@@ -19,7 +19,7 @@ function loadRazorpay() {
   });
 }
 
-export default function SevaInlineForm({ sevaTitle, suggestedAmount }) {
+export default function SevaInlineForm({ sevaTitle, suggestedAmount, amountType = 'variable' }) {
   const [form, setForm]       = useState(EMPTY_FORM(suggestedAmount));
   const [errors, setErrors]   = useState(EMPTY_ERR);
   const [loading, setLoading] = useState(false);
@@ -151,9 +151,16 @@ export default function SevaInlineForm({ sevaTitle, suggestedAmount }) {
 
       <div>
         <label style={fLabel}>Amount (Rs.) *</label>
-        <input style={fInput(errors.amount)} type="number" min="1" placeholder="Enter amount" value={form.amount}
-          onChange={set('amount')} onBlur={blur('amount', rules.amount)} />
-        {errors.amount && <span style={errMsg}>⚠ {errors.amount}</span>}
+        {amountType === 'fixed' ? (
+          <div style={{ display:'flex', alignItems:'center', gap:'.75rem', padding:'.75rem 1rem', background:'rgba(237,104,0,.07)', border:'1.5px solid rgba(237,104,0,.25)', borderRadius:'.75rem' }}>
+            <span style={{ fontSize:'1.1rem', fontWeight:700, color:'#c45500', fontFamily:'var(--font-cinzel),sans-serif' }}>Rs. {Number(form.amount).toLocaleString('en-IN')}</span>
+            <span style={{ fontSize:'.72rem', color:'#888', background:'rgba(0,0,0,.05)', padding:'.2rem .6rem', borderRadius:'2rem' }}>🔒 Fixed amount</span>
+          </div>
+        ) : (
+          <input style={fInput(errors.amount)} type="number" min="1" placeholder="Enter amount" value={form.amount}
+            onChange={set('amount')} onBlur={blur('amount', rules.amount)} />
+        )}
+        {errors.amount && amountType !== 'fixed' && <span style={errMsg}>⚠ {errors.amount}</span>}
       </div>
 
       <div>

@@ -32,7 +32,7 @@ async function getOtherRooms(slug) {
 
 const contactLinks = [
   { href:'tel:+919517312508',          icon:'📞', label:'+91 95173 12508', color:'#333',    bg:'rgba(237,104,0,.1)'   },
-  { href:'https://wa.me/919517312508', icon:'💬', label:'WhatsApp Us',     color:'#25D366', bg:'rgba(37,211,102,.1)', ext:true },
+  { href:'https://whatsapp.com/channel/0029VaxoenoDTkK4PrgDiK1I', icon:'💬', label:'WhatsApp Channel', color:'#25D366', bg:'rgba(37,211,102,.1)', ext:true },
   { href:'/contact',                   icon:'📩', label:'Send Inquiry',    color:'#ed6800', bg:'rgba(237,104,0,.1)'   },
 ];
 
@@ -93,7 +93,7 @@ export default async function RoomDetailPage({ params }) {
       {/* ══ MAIN CONTENT ══ */}
       <section style={{ padding:'4rem 0' }}>
         <div className="wrap">
-          <div style={{ display:'grid', gridTemplateColumns:'1fr 360px', gap:'3rem', alignItems:'start' }}>
+          <div className="room-detail-grid">
 
             {/* LEFT */}
             <div>
@@ -138,8 +138,8 @@ export default async function RoomDetailPage({ params }) {
               </div>
             </div>
 
-            {/* RIGHT — sticky */}
-            <div style={{ position:'sticky', top:'6rem', display:'flex', flexDirection:'column', gap:'1.25rem' }}>
+            {/* RIGHT — sticky on desktop, normal on mobile */}
+            <div>
               {/* Book card */}
               <div style={{ background:'white', border:'1px solid rgba(237,104,0,.15)', borderRadius:'1.5rem', overflow:'hidden', boxShadow:'0 8px 40px rgba(0,0,0,.08)' }}>
                 <div style={{ background:'linear-gradient(135deg,#c45500,#ed6800)', padding:'1.5rem', textAlign:'center' }}>
@@ -208,7 +208,15 @@ export default async function RoomDetailPage({ params }) {
               ))}
             </div>
           </div>
-          <style>{`.detail-card-link:hover{border-color:rgba(237,104,0,.3)!important;box-shadow:0 4px 20px rgba(237,104,0,.1);transform:translateY(-2px);}`}</style>
+          <style>{`
+            .room-detail-grid { display:grid; grid-template-columns:1fr 360px; gap:3rem; align-items:start; }
+            .room-detail-grid > div:last-child { position:sticky; top:6rem; display:flex; flex-direction:column; gap:1.25rem; }
+            @media (max-width:768px) {
+              .room-detail-grid { grid-template-columns:1fr; gap:2rem; }
+              .room-detail-grid > div:last-child { position:static; }
+            }
+            .detail-card-link:hover{border-color:rgba(237,104,0,.3)!important;box-shadow:0 4px 20px rgba(237,104,0,.1);transform:translateY(-2px);}
+          `}</style>
         </section>
       )}
 

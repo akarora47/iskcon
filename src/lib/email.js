@@ -375,3 +375,24 @@ export async function sendLifeMembershipEmails({ full_name, email, phone, city, 
     ${p('View all applications in the <a href="' + (process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000') + '/admin/life-membership" style="color:#ed6800;">Admin Panel</a>.')}
   `));
 }
+
+export async function sendAdminOtpEmail({ email, otp, name }) {
+  await send(
+    email,
+    'ISKCON Ayodhya Admin — Password Reset OTP',
+    wrap(`
+      ${hl('Password Reset OTP')}
+      ${p('Dear ' + (name || 'Admin') + ',')}
+      ${p('You requested a password reset for your ISKCON Ayodhya Admin account. Use the OTP below:')}
+      <div style="text-align:center;margin:2rem 0;">
+        <div style="display:inline-block;background:#1a0800;border:2px solid #ed6800;border-radius:1rem;padding:1.5rem 3rem;">
+          <p style="font-size:2.5rem;font-weight:900;letter-spacing:.4em;color:#ed6800;margin:0;font-family:monospace;">${otp}</p>
+        </div>
+        <p style="color:#888;font-size:.85rem;margin-top:1rem;">Valid for 10 minutes only</p>
+      </div>
+      ${p('If you did not request this, please ignore this email. Your password will not be changed.')}
+      ${hr()}
+      ${p('Hare Krishna 🙏 — ISKCON Ayodhya Admin', 'text-align:center;color:#8a6040;font-style:italic;')}
+    `)
+  );
+}

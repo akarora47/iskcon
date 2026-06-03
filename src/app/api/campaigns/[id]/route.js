@@ -8,10 +8,10 @@ export async function PUT(req, context) {
   if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   try {
     const body = await req.json();
-    const { title, title_hi, icon, description, description_hi, goal_amount, raised_amount, image, featured, active } = body;
+    const { title, title_hi, icon, description, description_hi, goal_amount, raised_amount, image, featured, active, amount_type } = body;
     await pool.query(
-      'UPDATE seva_campaigns SET title=?,title_hi=?,icon=?,description=?,description_hi=?,goal_amount=?,raised_amount=?,image=?,featured=?,active=? WHERE id=?',
-      [title, title_hi, icon, description, description_hi, goal_amount, raised_amount, image, featured?1:0, active?1:0, id]
+      'UPDATE seva_campaigns SET title=?,title_hi=?,icon=?,description=?,description_hi=?,goal_amount=?,raised_amount=?,image=?,featured=?,active=?,amount_type=? WHERE id=?',
+      [title, title_hi, icon, description, description_hi, goal_amount, raised_amount, image, featured?1:0, active?1:0, amount_type||'variable', id]
     );
     return NextResponse.json({ message: 'Updated' });
   } catch (e) {

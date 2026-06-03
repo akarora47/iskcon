@@ -79,7 +79,7 @@ export default function LifeMembershipForms({
         <div style={{ display: 'flex', flexDirection: 'column', gap: '.5rem' }}>
           {[
             { href: 'tel:+919517312508', icon: '📞', label: '+91 95173 12508', color: '#333' },
-            { href: 'https://wa.me/919517312508', icon: '💬', label: 'WhatsApp Us', color: '#25D366', ext: true },
+            { href: 'https://whatsapp.com/channel/0029VaxoenoDTkK4PrgDiK1I', icon: '💬', label: 'WhatsApp Channel', color: '#25D366', ext: true },
             { href: '/contact', icon: '📩', label: 'Send Inquiry', color: '#ed6800' },
           ].map(c => (
             <a key={c.href} href={c.href} target={c.ext ? '_blank' : undefined} rel={c.ext ? 'noreferrer' : undefined}

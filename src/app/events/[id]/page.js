@@ -29,7 +29,7 @@ async function getRelatedEvents(id) {
 
 const contactLinks = [
   { href:'tel:+919517312508',          icon:'📞', label:'+91 95173 12508', color:'#333',    bg:'rgba(237,104,0,.1)'   },
-  { href:'https://wa.me/919517312508', icon:'💬', label:'WhatsApp Us',     color:'#25D366', bg:'rgba(37,211,102,.1)', ext:true },
+  { href:'https://whatsapp.com/channel/0029VaxoenoDTkK4PrgDiK1I', icon:'💬', label:'WhatsApp Channel', color:'#25D366', bg:'rgba(37,211,102,.1)', ext:true },
   { href:'/contact',                   icon:'📩', label:'Send Inquiry',    color:'#ed6800', bg:'rgba(237,104,0,.1)'   },
 ];
 
@@ -98,12 +98,12 @@ export default async function EventDetailPage({ params }) {
       {/* ══ MAIN CONTENT ══ */}
       <section style={{ padding:'4rem 0' }}>
         <div className="wrap">
-          <div style={{ display:'grid', gridTemplateColumns:'1fr 360px', gap:'3rem', alignItems:'start' }}>
+          <div className="event-detail-grid">
 
             {/* LEFT */}
             <div>
               <h2 style={{ fontFamily:'var(--font-cinzel),serif', fontSize:'1.15rem', fontWeight:700, color:'#111', marginBottom:'1rem' }}>About This Event</h2>
-              <p style={{ fontSize:'.95rem', lineHeight:1.95, color:'#444', marginBottom:'2rem' }}>{event.description}</p>
+              <div style={{ fontSize:'.95rem', lineHeight:1.95, color:'#444', marginBottom:'2rem' }} dangerouslySetInnerHTML={{ __html: event.description || '' }} />
 
               <div style={{ display:'flex', flexDirection:'column', gap:'.75rem' }}>
                 {[
@@ -124,8 +124,8 @@ export default async function EventDetailPage({ params }) {
               </div>
             </div>
 
-            {/* RIGHT — sticky */}
-            <div style={{ position:'sticky', top:'6rem', display:'flex', flexDirection:'column', gap:'1.25rem' }}>
+            {/* RIGHT — sticky on desktop, normal on mobile */}
+            <div>
               {/* Register card */}
               <div style={{ background:'white', border:'1px solid rgba(237,104,0,.15)', borderRadius:'1.5rem', overflow:'hidden', boxShadow:'0 8px 40px rgba(0,0,0,.08)' }}>
                 <div style={{ background:'linear-gradient(135deg,#c45500,#ed6800)', padding:'1.5rem', textAlign:'center' }}>
@@ -187,7 +187,15 @@ export default async function EventDetailPage({ params }) {
               ))}
             </div>
           </div>
-          <style>{`.detail-card-link:hover{border-color:rgba(237,104,0,.3)!important;box-shadow:0 4px 20px rgba(237,104,0,.1);transform:translateY(-2px);}`}</style>
+          <style>{`
+            .event-detail-grid { display:grid; grid-template-columns:1fr 360px; gap:3rem; align-items:start; }
+            .event-detail-grid > div:last-child { position:sticky; top:6rem; display:flex; flex-direction:column; gap:1.25rem; }
+            @media (max-width:768px) {
+              .event-detail-grid { grid-template-columns:1fr; gap:2rem; }
+              .event-detail-grid > div:last-child { position:static; }
+            }
+            .detail-card-link:hover{border-color:rgba(237,104,0,.3)!important;box-shadow:0 4px 20px rgba(237,104,0,.1);transform:translateY(-2px);}
+          `}</style>
         </section>
       )}
 
