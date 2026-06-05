@@ -65,7 +65,7 @@ export default async function RootLayout({ children }) {
                     <img src="/logo.png" alt="ISKCON Ayodhya" style={{ height: '2.75rem', width: 'auto', objectFit: 'contain', filter: 'brightness(0) invert(1)' }} />
                   </div>
                   <p style={{ fontSize: '.84rem', lineHeight: 1.85, color: 'rgba(255,255,255,.5)', marginBottom: '.75rem', maxWidth: '260px' }}>
-                    Spreading the divine love of Lord Krishna and Lord Ram in the sacred city of Ayodhya since 2005.
+                    Spreading the divine love of Lord Krishna and Lord Ram in the sacred city of Ayodhya since 2020.
                   </p>
                   <p style={{ fontSize: '.82rem', fontFamily: 'var(--font-cinzel),serif', color: '#ed6800', marginBottom: '1.5rem', letterSpacing: '.06em', fontWeight: 600 }}>
                     Hare Krishna Hare Krishna 🙏
@@ -101,7 +101,7 @@ export default async function RootLayout({ children }) {
                 <div>
                   <p className="footer-head">Contact Us</p>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '.75rem' }}>
-                    <p style={{ fontSize: '.84rem', color: 'rgba(255,255,255,.5)', lineHeight: 1.6 }}>📍 ISKCON Ayodhya, Ram Nagar,<br />Faizabad, Uttar Pradesh 224001, India</p>
+                    <p style={{ fontSize: '.84rem', color: 'rgba(255,255,255,.5)', lineHeight: 1.6 }}>📍 ISKCON Ayodhya, Ram Nagar, Naka Hanuman Garhi,<br />Faizabad, Ayodhya, Uttar Pradesh, India 224001</p>
                     <a href="tel:+919517312508" style={{ fontSize: '.84rem', color: 'rgba(255,255,255,.5)', textDecoration: 'none', transition: 'color .2s' }}>📞 +91 95173 12508</a>
                     <a href="tel:+916387021220" style={{ fontSize: '.84rem', color: 'rgba(255,255,255,.5)', textDecoration: 'none', transition: 'color .2s' }}>📞 +91 63870 21220</a>
                     <a href="mailto:info@iskconayodhya.com" style={{ fontSize: '.84rem', color: 'rgba(255,255,255,.5)', textDecoration: 'none' }}>✉️ info@iskconayodhya.com</a>

@@ -58,7 +58,7 @@ export default async function Home() {
         <div className="wrap" style={{ position: 'relative', zIndex: 10, width: '100%', padding: '11rem 1.5rem 5rem' }}>
           <div className="hero-grid" style={{ gap: '4rem' }}>
             <div>
-              <span className="section-badge">🙏 Hare Krishna · Hare Rama</span>
+              <span className="section-badge">🙏 Shree Shree Radha Gokulanand</span>
               <h1 style={{ fontSize: 'clamp(2.2rem,4.5vw,4rem)', fontWeight: 700, color: '#111', marginBottom: '.5rem', marginTop: '.75rem', lineHeight: 1.15 }}>
                 Welcome to <span className="gradient-text-gold">ISKCON<br />Ayodhya</span>
               </h1>
@@ -75,7 +75,7 @@ export default async function Home() {
               <div style={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap', marginTop: '3rem', paddingTop: '2rem', borderTop: '1px solid rgba(196,85,0,.1)' }}>
                 {[
                   { label: 'Darshan', value: '4:30 AM – 8:30 PM' },
-                  { label: 'Location', value: 'Ram Nagar, Faizabad, UP 224001' },
+                  { label: 'Location', value: 'Naka Hanuman Garhi, Faizabad, Ayodhya' },
                 ].map((info) => (
                   <div key={info.label} style={{ minWidth: 0 }}>
                     <p style={{ fontSize: '.68rem', fontWeight: 600, letterSpacing: '.15em', textTransform: 'uppercase', color: '#555', marginBottom: '.2rem', fontFamily: 'var(--font-poppins)' }}>{info.label}</p>
@@ -147,7 +147,7 @@ export default async function Home() {
                 ))}
               </div>
               <div style={{ position: 'absolute', top: '-1rem', right: '-1rem', background: 'linear-gradient(135deg,#c45500,#ed6800)', borderRadius: '1.25rem', padding: '1rem 1.4rem', boxShadow: '0 12px 30px rgba(237,104,0,.4)', textAlign: 'center' }}>
-                <p style={{ fontFamily: 'var(--font-cinzel),serif', fontSize: '1.5rem', fontWeight: 900, color: 'white', lineHeight: 1 }}>2005</p>
+                <p style={{ fontFamily: 'var(--font-cinzel),serif', fontSize: '1.5rem', fontWeight: 900, color: 'white', lineHeight: 1 }}>2019</p>
                 <p style={{ fontSize: '.65rem', color: 'rgba(255,255,255,.85)', textTransform: 'uppercase', letterSpacing: '.08em', marginTop: '.25rem' }}>Established</p>
               </div>
             </div>

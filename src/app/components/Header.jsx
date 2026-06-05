@@ -394,7 +394,6 @@ export default function Header() {
                 <Link key={s.slug} href={'/seva/' + s.slug} onClick={closeMenu}
                   style={{ display:'flex', alignItems:'center', gap:'.6rem', padding:'.75rem 1.25rem .75rem 3.5rem', textDecoration:'none', color:'#333', fontSize:'.95rem', borderBottom:'1px solid rgba(237,104,0,.07)', fontFamily:'var(--font-poppins)' }}>
                   <span style={{ flex:1 }}>{s.title}</span>
-                  {s.amount && <span style={{ fontSize:'.75rem', color:'#ed6800', fontWeight:600, flexShrink:0 }}>{s.amount}</span>}
                 </Link>
               );
             })}
@@ -411,7 +410,6 @@ export default function Header() {
                 <Link key={r.slug} href={'/rooms/' + r.slug} onClick={closeMenu}
                   style={{ display:'flex', alignItems:'center', gap:'.6rem', padding:'.75rem 1.25rem .75rem 3.5rem', textDecoration:'none', color:'#333', fontSize:'.95rem', borderBottom:'1px solid rgba(237,104,0,.07)', fontFamily:'var(--font-poppins)' }}>
                   <span style={{ flex:1 }}>{r.title}</span>
-                  {r.price && <span style={{ fontSize:'.75rem', color:'#ed6800', fontWeight:600, flexShrink:0 }}>{r.price}</span>}
                 </Link>
               );
             })}

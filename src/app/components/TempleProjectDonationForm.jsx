@@ -242,7 +242,8 @@ export default function TempleProjectDonationForm({ projectTitle, projectSlug, d
             <div>
               <label style={fLabel}>PAN <span style={{ fontSize:'.6rem', color:'#aaa', textTransform:'none' }}>(for 80G)</span></label>
               <input style={fInput(errors.pan)} type="text" maxLength={10} placeholder="ABCDE1234F" value={form.pan}
-                onChange={set('pan')} onBlur={() => { const v=form.pan.toUpperCase(); setForm(f=>({...f,pan:v})); setErrors(er=>({...er,pan:rules.pan(v)})); }} />
+                onChange={e => { const v=e.target.value.toUpperCase(); setForm(f=>({...f,pan:v})); setErrors(er=>({...er,pan:''})); }}
+                onBlur={() => { const v=form.pan.toUpperCase(); setForm(f=>({...f,pan:v})); setErrors(er=>({...er,pan:rules.pan(v)})); }} />
               {errors.pan && <span style={errMsg}>⚠ {errors.pan}</span>}
             </div>
           </div>

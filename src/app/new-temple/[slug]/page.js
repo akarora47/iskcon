@@ -1,22 +1,34 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import TempleProjectClient from '../../components/TempleProjectClient';
+import pool from '@/lib/db';
 
 async function getProject(slug) {
   try {
-    const base = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
-    const res = await fetch(`${base}/api/temple-projects/${slug}`, { next: { revalidate: 60 } });
-    if (!res.ok) return null;
-    return res.json();
+    const [rows] = await pool.query(
+      'SELECT * FROM temple_projects WHERE slug = ? AND status = ?',
+      [slug, 'published']
+    );
+    if (!rows.length) return null;
+    const p = rows[0];
+    // Parse JSON fields
+    try { p.stats = typeof p.stats === 'string' ? JSON.parse(p.stats) : (p.stats || {}); } catch { p.stats = {}; }
+    // Fetch donation settings
+    try {
+      const [ds] = await pool.query('SELECT * FROM temple_donation_settings WHERE project_id = ? LIMIT 1', [p.id]);
+      p.donationSettings = ds[0] || null;
+    } catch { p.donationSettings = null; }
+    return p;
   } catch { return null; }
 }
 
 async function getAllProjects() {
   try {
-    const base = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
-    const res = await fetch(`${base}/api/temple-projects`, { next: { revalidate: 60 } });
-    if (!res.ok) return [];
-    return res.json();
+    const [rows] = await pool.query(
+      'SELECT id, slug, title, location, banner_image FROM temple_projects WHERE status = ? ORDER BY featured DESC, sort_order ASC, id ASC',
+      ['published']
+    );
+    return rows;
   } catch { return []; }
 }
 

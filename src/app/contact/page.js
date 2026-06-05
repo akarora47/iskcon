@@ -15,7 +15,7 @@ const socials = [
 ];
 
 const heroCards = [
-  { icon: '📍', title: 'Address',    value: 'ISKCON Ayodhya, Ram Nagar, Faizabad, Uttar Pradesh 224001, India' },
+  { icon: '📍', title: 'Address',    value: 'ISKCON Ayodhya, Ram Nagar, Naka Hanuman Garhi, Faizabad, Ayodhya, Uttar Pradesh, India 224001' },
   { icon: '📞', title: 'Phone',      value: '+91 95173 12508 / +91 63870 21220' },
   { icon: '✉️', title: 'Email',      value: 'info@iskconayodhya.com' },
   { icon: '⏰', title: 'Open Hours', value: '4:30 AM – 8:30 PM' },
@@ -111,7 +111,7 @@ export default function ContactPage() {
                 />
                 <div style={{ padding: '1.25rem 1.5rem', background: 'rgba(237,104,0,.04)', borderTop: '1px solid rgba(237,104,0,.1)' }}>
                   <p style={{ fontSize: '.84rem', color: '#555', lineHeight: 1.7, marginBottom: '.75rem' }}>
-                    📍 ISKCON Ayodhya, Ram Nagar, Faizabad, Uttar Pradesh 224001, India
+                    📍 ISKCON Ayodhya, Ram Nagar, Naka Hanuman Garhi, Faizabad, Ayodhya, Uttar Pradesh, India 224001
                   </p>
                   <div style={{ display: 'flex', gap: '.75rem', flexWrap: 'wrap' }}>
                     <a

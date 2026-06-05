@@ -2,7 +2,8 @@
 import TempleProjectDonationForm from './TempleProjectDonationForm';
 
 const contactLinks = [
-  { href:'tel:+919517312508',          icon:'📞', label:'+91 95173 12508', color:'#333',    bg:'rgba(237,104,0,.1)'     },
+  { href:'tel:+919517312508', icon:'📞', label:'+91 95173 12508', color:'#333', bg:'rgba(237,104,0,.1)' },
+  { href:'tel:+916387021220', icon:'📞', label:'+91 63870 21220', color:'#333', bg:'rgba(237,104,0,.1)' },
   { href:'https://whatsapp.com/channel/0029VaxoenoDTkK4PrgDiK1I', icon:'💬', label:'WhatsApp Channel', color:'#25D366', bg:'rgba(37,211,102,.1)', ext:true },
   { href:'/contact',                   icon:'📩', label:'Send Inquiry',    color:'#ed6800', bg:'rgba(237,104,0,.1)'     },
 ];

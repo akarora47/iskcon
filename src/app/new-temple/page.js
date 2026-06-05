@@ -1,12 +1,15 @@
 import Link from 'next/link';
 import TempleProjectCard from '../components/TempleProjectCard';
+import pool from '@/lib/db';
 
 async function getProjects() {
   try {
-    const base = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
-    const res = await fetch(`${base}/api/temple-projects`, { next: { revalidate: 60 } });
-    if (!res.ok) return [];
-    return res.json();
+    const [rows] = await pool.query(
+      `SELECT id, slug, title, subtitle, description, banner_image, thumbnail_image,
+              stats, goal_amount, raised_amount, status, featured, sort_order
+       FROM temple_projects WHERE status = 'published' ORDER BY featured DESC, sort_order ASC, id ASC`
+    );
+    return rows;
   } catch { return []; }
 }
 
