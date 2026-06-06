@@ -142,7 +142,7 @@ export default async function Home() {
                 <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg,transparent 55%,rgba(0,0,0,.55))', borderRadius: '1.75rem' }} />
               </div>
               <div style={{ position: 'absolute', bottom: '1.5rem', left: '1.25rem', right: '1.25rem', display: 'flex', flexWrap: 'wrap', gap: '.5rem' }}>
-                {['🛕 7 Daily Aartis', '🍽️ Free Prasadam', '🐄 GauShala', '📖 Bhagavatam Class'].map((badge) => (
+                {['🐄 GauShala', '📖 Bhagavatam Class'].map((badge) => (
                   <span key={badge} style={{ background: 'rgba(237,104,0,.85)', backdropFilter: 'blur(8px)', color: 'white', fontSize: '.72rem', fontWeight: 600, padding: '.35rem .85rem', borderRadius: '2rem', border: '1px solid rgba(255,255,255,.15)' }}>{badge}</span>
                 ))}
               </div>

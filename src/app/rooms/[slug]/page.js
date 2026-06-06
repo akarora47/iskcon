@@ -85,9 +85,6 @@ export default async function RoomDetailPage({ params }) {
             {icon} {room.title}
           </h1>
 
-          <div style={{ display:'inline-flex', alignItems:'center', gap:'.5rem', background:'rgba(237,104,0,.12)', border:'1px solid rgba(237,104,0,.2)', borderRadius:'2rem', padding:'.4rem 1rem' }}>
-            <span style={{ fontFamily:'var(--font-cinzel),serif', fontWeight:700, color:'#ed6800', fontSize:'.95rem' }}>{priceLabel}</span>
-          </div>
         </div>
       </section>
 
@@ -145,7 +142,7 @@ export default async function RoomDetailPage({ params }) {
                 <div style={{ background:'linear-gradient(135deg,#c45500,#ed6800)', padding:'1.5rem', textAlign:'center' }}>
                   <div style={{ fontSize:'2rem', marginBottom:'.5rem' }}>{icon}</div>
                   <h3 style={{ fontFamily:'var(--font-cinzel),serif', fontSize:'1rem', fontWeight:700, color:'white', marginBottom:'.2rem' }}>{room.title}</h3>
-                  <p style={{ fontFamily:'var(--font-cinzel),serif', fontSize:'1.1rem', fontWeight:700, color:'rgba(255,255,255,.9)' }}>{priceLabel}</p>
+                  <p style={{ fontSize:'.82rem', color:'rgba(255,255,255,.75)', marginTop:'.2rem' }}>Enquire for availability & pricing</p>
                 </div>
                 <div style={{ padding:'1.75rem' }}>
                   <p style={{ fontSize:'.84rem', color:'#666', lineHeight:1.7, marginBottom:'1.25rem' }}>
@@ -200,8 +197,7 @@ export default async function RoomDetailPage({ params }) {
                   <div className="detail-card-link" style={{ background:'#fafaf8', border:'1px solid rgba(0,0,0,.07)', borderRadius:'1.1rem', overflow:'hidden', transition:'all .2s' }}>
                     <img src={r.image||'/prasadam-hall.jpg'} alt={r.title} style={{ width:'100%', height:'8rem', objectFit:'cover', display:'block' }} />
                     <div style={{ padding:'1rem' }}>
-                      <p style={{ fontFamily:'var(--font-cinzel),serif', fontSize:'.85rem', fontWeight:700, color:'#111', marginBottom:'.2rem' }}>{r.icon||'🛏️'} {r.title}</p>
-                      <p style={{ fontSize:'.76rem', color:'#ed6800', fontWeight:600 }}>{r.price || `Rs.${Number(r.price_amount).toLocaleString('en-IN')}/night`}</p>
+                      <p style={{ fontFamily:'var(--font-cinzel),serif', fontSize:'.85rem', fontWeight:700, color:'#111' }}>{r.icon||'🛏️'} {r.title}</p>
                     </div>
                   </div>
                 </Link>

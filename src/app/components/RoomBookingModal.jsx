@@ -69,9 +69,8 @@ export default function RoomBookingModal({ rooms }) {
             )}
             <img src={imgSrc(r)} alt={rName(r)} style={{ width:'100%', height:'12rem', objectFit:'cover', display:'block' }} />
             <div style={{ padding:'1.5rem' }}>
-              <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between', marginBottom:'.75rem' }}>
+              <div style={{ marginBottom:'.75rem' }}>
                 <h3 style={{ fontFamily:'var(--font-cinzel),serif', fontSize:'1rem', fontWeight:700, color:'#111' }}>{r.icon || '🛏️'} {rName(r)}</h3>
-                <span style={{ fontFamily:'var(--font-cinzel),serif', fontSize:'1rem', fontWeight:700, color:'#ed6800', flexShrink:0, marginLeft:'.5rem' }}>{priceLabel(r)}</span>
               </div>
               <p style={{ fontSize:'.84rem', color:'#555', lineHeight:1.7, marginBottom:'1rem' }}>{r.description}</p>
               <div style={{ display:'flex', flexWrap:'wrap', gap:'.5rem', marginBottom:'1.25rem' }}>
@@ -97,9 +96,8 @@ export default function RoomBookingModal({ rooms }) {
           </div>
         ) : (
           <div style={{ display:'flex', flexDirection:'column', gap:'1rem' }}>
-            <div style={{ background:'rgba(237,104,0,.06)', border:'1px solid rgba(237,104,0,.15)', borderRadius:'1rem', padding:'1rem 1.25rem', display:'flex', alignItems:'center', justifyContent:'space-between' }}>
+            <div style={{ background:'rgba(237,104,0,.06)', border:'1px solid rgba(237,104,0,.15)', borderRadius:'1rem', padding:'1rem 1.25rem' }}>
               <span style={{ fontSize:'.9rem', fontWeight:600, color:'#111' }}>{room?.icon || '🛏️'} {rName(room)}</span>
-              <span style={{ fontFamily:'var(--font-cinzel),serif', fontWeight:700, color:'#ed6800' }}>{priceLabel(room)}</span>
             </div>
 
             <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(140px,1fr))', gap:'1rem' }}>

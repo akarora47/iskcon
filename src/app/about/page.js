@@ -142,7 +142,7 @@ export default function AboutPage() {
               { year: '1977', icon: '🕊️', event: "Prabhupada's Eternal Legacy", desc: 'The Founder-Acharya departed this world, leaving behind 108+ temples, thousands of initiated disciples, and translations of 80+ Vedic scriptures.' },
               { year: '1984', icon: '🌺', event: 'ISKCON Comes to Uttar Pradesh', desc: 'Devotees began serving in the sacred land of Uttar Pradesh — deeply connected to Lord Vishnu, Lord Ram and the Vaishnava tradition.' },
               { year: '2019', icon: '🛕', event: 'ISKCON Ayodhya Established', desc: 'ISKCON was formally established in Ayodhya Dham — the birthplace of Lord Ram — with daily aarti, prasadam distribution and Bhagavatam classes commencing.' },
-              { year: '2024', icon: '✨', event: 'New Temple Complex Inaugurated', desc: 'A grand modern temple complex was inaugurated in Ayodhya Dham — a beacon of devotion and Vedic culture for pilgrims and devotees worldwide.' },
+              { year: '2024', icon: '🚧', event: 'New Temple Complex — Coming Soon', desc: 'A grand modern temple complex is being built in Ayodhya Dham — a future beacon of devotion and Vedic culture for pilgrims and devotees worldwide. Stay tuned!' },
             ].map((m, i) => (
               <div key={m.year} className={`reveal d${(i+1)*100}`} style={{ display: 'flex', gap: '2rem', alignItems: 'flex-start', marginBottom: '2.5rem', position: 'relative' }}>
                 <div style={{ minWidth: '7rem', textAlign: 'center', position: 'relative', zIndex: 1, flexShrink: 0 }}>
