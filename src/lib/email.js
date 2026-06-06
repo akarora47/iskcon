@@ -22,11 +22,12 @@ const ADMIN = process.env.ADMIN_EMAIL || 'info@iskconayodhya.com';
 
 // ── Inline row helper ─────────────────────────────────────────
 function row(label, value, last = false) {
-  if (value === null || value === undefined || value === '') return '';
+  if (value === null || value === undefined) return '';
+  const displayVal = value === '' ? '--' : value;
   const bb = last ? '' : 'border-bottom:1px solid #f0d8b0;';
   return `<tr>
     <td style="padding:12px 0;${bb}font-size:13px;color:#8a6040;text-transform:uppercase;letter-spacing:.06em;white-space:nowrap;vertical-align:middle;width:40%;">${label}</td>
-    <td style="padding:12px 16px;${bb}font-size:14px;color:#1a0900;font-weight:600;text-align:right;vertical-align:middle;">${value}</td>
+    <td style="padding:12px 16px;${bb}font-size:14px;color:#1a0900;font-weight:600;text-align:right;vertical-align:middle;">${displayVal}</td>
   </tr>`;
 }
 
@@ -384,7 +385,7 @@ export async function sendContactEmails({ name, email, phone, subject, message }
   await send(email, 'Message Received - ISKCON Ayodhya', wrap(`
     <p style="font-size:18px;color:#c45500;font-weight:bold;margin-bottom:8px;">Hare Krishna, ${name}!</p>
     ${p('Thank you for reaching out to ISKCON Ayodhya. We have received your message and our team will respond within 24 hours.')}
-    ${box(row('Your Name',name)+row('Subject',subject)+row('Message',message,true))}
+    ${box(row('Your Name',name)+row('Email',email)+row('Phone',phone||'--')+row('Subject',subject)+row('Message',message,true))}
     ${p('If urgent, reach us at: +91 95173 12508 | info@iskconayodhya.com')}
     ${hr()}
     ${p('Hare Krishna! We look forward to serving you.','text-align:center;font-style:italic;color:#8a6040;')}
