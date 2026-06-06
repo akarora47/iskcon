@@ -94,141 +94,200 @@ function amountToWords(num) {
 // ─────────────────────────────────────────────────────────────
 function donationReceiptHtml({ full_name, email, phone, address, pin, pan, seva_type, amount, message, payment_id }) {
   const date      = new Date().toLocaleDateString('en-IN', { day:'2-digit', month:'2-digit', year:'numeric' });
+  const year      = new Date().getFullYear();
   const receiptNo = payment_id ? payment_id.slice(-10).toUpperCase() : Date.now().toString().slice(-10);
   const amtNum    = Number(amount);
   const amtWords  = amountToWords(amtNum);
   const amtFmt    = amtNum.toLocaleString('en-IN');
   const payMode   = payment_id ? 'Online / UPI' : 'Cash';
-  const msgRow    = message ? `<tr><td style="font-size:11px;color:#555;padding:4px 0;vertical-align:top;">Message</td><td style="font-size:12px;color:#333;padding:4px 0;font-style:italic;">${message}</td></tr>` : '';
+  const msgRow    = message ? `<tr><td style="font-size:11px;color:#555;padding:4px 0;vertical-align:top;width:65px;">Message</td><td style="font-size:12px;color:#333;padding:4px 0;font-style:italic;">${message}</td></tr>` : '';
+  const siteUrl   = process.env.NEXT_PUBLIC_SITE_URL || 'https://iskconayodhya.com';
+  const logoUrl   = siteUrl + '/logo.png';
 
-  return `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/><title>ISKCON Ayodhya Donation Receipt</title></head>
-<body style="margin:0;padding:0;background:#f0ede0;font-family:Arial,Helvetica,sans-serif;color:#111;">
-<table width="100%" cellpadding="0" cellspacing="0" style="background:#f0ede0;padding:20px 12px;">
-<tr><td align="center">
-<table width="660" cellpadding="0" cellspacing="0" style="max-width:660px;width:100%;background:#fffef5;border:1.5px solid #c8a84b;">
+  return `<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"/><title>ISKCON Ayodhya Donation Receipt</title></head>
+<body style="margin:0;padding:0;background:#d6cfba;font-family:Arial,Helvetica,sans-serif;">
+
+<table width="100%" cellpadding="0" cellspacing="0" bgcolor="#d6cfba">
+<tr><td align="center" style="padding:20px 10px;">
+
+<!-- OUTER TABLE: RECEIPT + PTO -->
+<table cellpadding="0" cellspacing="0" width="660" style="max-width:660px;">
+<tr valign="top">
+
+<!-- RECEIPT -->
+<td>
+<table cellpadding="0" cellspacing="0" width="100%" style="border:2px solid #c9a84c;background:#fffef5;">
 
 <!-- HEADER -->
-<tr><td style="padding:14px 18px;border-bottom:1.5px solid #c8a84b;">
-<table width="100%" cellpadding="0" cellspacing="0"><tr>
-<td width="72" style="vertical-align:middle;">
-<div style="width:68px;height:68px;border-radius:50%;border:2px solid #c8a84b;background:#fff8dc;text-align:center;line-height:68px;font-size:30px;">&#127747;</div>
-<div style="font-size:9px;font-weight:bold;color:#1a3a7a;text-align:center;margin-top:3px;">ISKCON</div>
-<div style="font-size:8px;color:#1a3a7a;text-align:center;font-weight:bold;">AYODHYA</div>
+<tr bgcolor="#fffef5">
+<td style="padding:10px 14px;border-bottom:2px solid #c9a84c;">
+<table cellpadding="0" cellspacing="0" width="100%"><tr valign="middle">
+
+<td width="90" align="center" style="padding-right:8px;">
+<img src="${logoUrl}" width="80" height="80" alt="ISKCON Ayodhya" style="display:block;max-width:80px;"/>
 </td>
-<td style="padding:0 14px;text-align:center;vertical-align:middle;">
-<div style="font-family:Georgia,'Times New Roman',serif;font-size:18px;font-weight:bold;color:#1a3a7a;">International Society for Krishna Consciousness (ISKCON)</div>
-<div style="font-size:11px;color:#3a5aaa;margin-top:5px;font-style:italic;">Founder-Acharya: His Divine Grace A. C. Bhaktivedanta Swami Prabhupada</div>
+
+<td align="center" style="padding:0 10px;">
+<div style="font-family:Georgia,serif;font-size:18px;font-weight:bold;color:#1e3a8a;line-height:1.3;">International Society for Krishna Consciousness (ISKCON)</div>
+<div style="font-size:11px;color:#3b5bdb;margin-top:5px;font-style:italic;">Founder-Acharya: His Divine Grace A. C. Bhaktivedanta Swami Prabhupada</div>
 </td>
-<td width="46" style="vertical-align:top;text-align:center;">
-<div style="border:1px solid #999;padding:5px 3px;font-size:8px;color:#666;text-align:center;line-height:1.4;">holo<br/>gram</div>
+
+<td width="42" valign="top" align="center">
+<table cellpadding="3" cellspacing="0" style="border:1px solid #999;"><tr><td style="font-size:8px;color:#777;text-align:center;line-height:1.4;">holo<br/>gram</td></tr></table>
 </td>
+
 </tr></table>
-</td></tr>
+</td>
+</tr>
 
 <!-- BRANCH + RECEIPT NO -->
-<tr><td style="border-bottom:1.5px solid #c8a84b;">
-<table width="100%" cellpadding="0" cellspacing="0"><tr>
-<td style="padding:12px 18px;border-right:1px solid #c8a84b;width:55%;vertical-align:top;">
-<div style="font-size:11px;font-weight:bold;color:#c0185a;text-align:center;margin-bottom:6px;">Branch</div>
-<div style="font-size:13px;font-weight:bold;color:#111;text-align:center;">ISKCON Ayodhya</div>
-<div style="font-size:11px;color:#333;text-align:center;margin-top:5px;line-height:1.7;">Ram Nagar, Faizabad, Uttar Pradesh 224001<br/>Mobile: 95173 12508 / 63870 21220<br/>E-mail: info@iskconayodhya.com</div>
+<tr>
+<td style="border-bottom:1.5px solid #c9a84c;padding:0;">
+<table cellpadding="0" cellspacing="0" width="100%"><tr valign="top">
+
+<td width="54%" style="padding:10px 14px;border-right:1.5px solid #c9a84c;">
+<div style="font-size:10px;font-weight:bold;color:#c0185a;text-align:center;letter-spacing:1px;margin-bottom:5px;">Branch</div>
+<table cellpadding="6" cellspacing="0" width="100%" style="border:1px solid #c9a84c;background:#fffde8;">
+<tr><td align="center">
+<div style="font-size:13px;font-weight:bold;color:#111;margin-bottom:3px;">ISKCON Ayodhya</div>
+<div style="font-size:10px;color:#333;line-height:1.8;">Ram Nagar, Naka Hanuman Garhi<br/>Faizabad, Ayodhya, Uttar Pradesh - 224001<br/>&#9742; Mobile: 95173 12508 / 63870 21220<br/>E-mail: info@iskconayodhya.com</div>
+</td></tr>
+</table>
 </td>
-<td style="padding:12px 18px;vertical-align:top;width:45%;">
-<table width="100%" cellpadding="0" cellspacing="0">
-<tr><td colspan="2" style="padding-bottom:8px;border-bottom:1px solid #c8a84b;">
-<span style="font-size:12px;font-weight:bold;color:#c0185a;">Donation Receipt No.</span><br/>
-<span style="font-size:15px;font-weight:bold;color:#111;letter-spacing:.5px;">${receiptNo}</span>
+
+<td width="46%" style="padding:10px 14px;">
+<div style="font-size:11px;font-weight:bold;color:#c0185a;">Donation &nbsp; Receipt No.</div>
+<div style="font-size:15px;font-weight:bold;color:#111;letter-spacing:1px;font-family:monospace;margin:3px 0 8px;">${receiptNo}</div>
+<table cellpadding="0" cellspacing="0" width="100%"><tr valign="middle">
+<td>
+<table cellpadding="5" cellspacing="0" style="border:2px solid #c0185a;"><tr><td align="center" style="font-size:11px;font-weight:bold;color:#c0185a;line-height:1.4;">DONOR'S<br/>COPY</td></tr></table>
+</td>
+<td align="right">
+<div style="font-size:9px;font-weight:bold;color:#c0185a;text-align:center;margin-bottom:3px;">Date</div>
+<table cellpadding="4" cellspacing="0" style="border:1px solid #bbb;margin-left:auto;"><tr><td style="font-size:12px;font-weight:bold;color:#111;">${date}</td></tr></table>
+</td>
+</tr></table>
+</td>
+
+</tr></table>
+</td>
+</tr>
+
+<!-- DONATION AMOUNT -->
+<tr>
+<td style="border-bottom:1.5px solid #c9a84c;padding:0;">
+<table cellpadding="0" cellspacing="0" width="100%" bgcolor="#fff0f4">
+<tr><td colspan="3" style="padding:5px;text-align:center;border-bottom:1px solid #f0b0c0;">
+<span style="font-size:10px;font-weight:bold;color:#c0185a;letter-spacing:.5px;">&#8212; Donation Amount in Rupees &#8212;</span>
 </td></tr>
 <tr>
-<td style="padding-top:8px;vertical-align:middle;">
-<div style="border:2px solid #c0185a;padding:5px 8px;text-align:center;color:#c0185a;font-weight:bold;font-size:12px;display:inline-block;line-height:1.3;">DONOR'S<br/>COPY</div>
-</td>
-<td style="padding-top:8px;vertical-align:middle;text-align:right;">
-<div style="font-size:10px;font-weight:bold;color:#c0185a;border-bottom:1px solid #ccc;padding-bottom:2px;margin-bottom:4px;">Date</div>
-<div style="border:1px solid #ccc;padding:4px 10px;font-size:13px;font-weight:bold;display:inline-block;">${date}</div>
+<td style="padding:10px 14px;font-size:13px;color:#111;">${amtWords} Only/-</td>
+<td style="padding:10px 14px;border-left:1px solid #c9a84c;text-align:right;white-space:nowrap;">
+<span style="font-size:20px;font-weight:bold;color:#111;">&#8377; ${amtFmt} /-</span>
 </td>
 </tr>
 </table>
 </td>
-</tr></table>
-</td></tr>
+</tr>
 
-<!-- DONATION AMOUNT -->
-<tr><td style="border-bottom:1.5px solid #c8a84b;">
-<div style="font-size:10px;font-weight:bold;color:#c0185a;text-align:center;padding:4px 18px;border-bottom:1px solid #e8a0b0;letter-spacing:.3px;">-- Donation Amount in Rupees --</div>
-<table width="100%" cellpadding="0" cellspacing="0"><tr>
-<td style="padding:10px 18px;font-size:13px;color:#111;">${amtWords} Only/-</td>
-<td style="padding:10px 18px;text-align:right;border-left:1px solid #c8a84b;white-space:nowrap;vertical-align:middle;">
-<span style="font-size:20px;font-weight:bold;color:#111;">&#8377; ${amtFmt} /-</span>
-</td>
-</tr></table>
-</td></tr>
+<!-- DONOR DETAILS + PAYMENT -->
+<tr>
+<td style="border-bottom:1.5px solid #c9a84c;padding:0;">
+<table cellpadding="0" cellspacing="0" width="100%"><tr valign="top">
 
-<!-- DONOR DETAILS + PAYMENT DETAILS -->
-<tr><td style="border-bottom:1.5px solid #c8a84b;">
-<table width="100%" cellpadding="0" cellspacing="0"><tr>
-<td style="padding:12px 18px;border-right:1px solid #c8a84b;width:55%;vertical-align:top;">
-<div style="font-size:10px;font-weight:bold;color:#c0185a;margin-bottom:8px;">-- Donor Details (T&amp;C mentioned backside for 80G/10BE) --</div>
+<td width="54%" style="padding:10px 14px;border-right:1.5px solid #c9a84c;">
+<div style="font-size:9px;font-weight:bold;color:#c0185a;margin-bottom:7px;">&#8212; Donor Details (T&amp;C mentioned backside for 80G/10BE) &#8212;</div>
 <table cellpadding="0" cellspacing="0" width="100%">
-<tr><td style="font-size:11px;color:#555;width:65px;padding:4px 0;vertical-align:top;">Name</td><td style="font-size:13px;font-weight:bold;color:#111;padding:4px 0;">${full_name}</td></tr>
-<tr><td style="font-size:11px;color:#555;padding:4px 0;vertical-align:top;">Address</td><td style="font-size:12px;color:#111;padding:4px 0;">${address || '--'}</td></tr>
-<tr><td style="font-size:11px;color:#555;padding:4px 0;">PIN</td><td style="font-size:12px;color:#111;padding:4px 0;">${pin || '--'}</td></tr>
-<tr><td style="font-size:11px;color:#555;padding:4px 0;">PAN</td><td style="font-size:12px;color:#111;padding:4px 0;">${pan || '--'}</td></tr>
-<tr><td style="font-size:11px;color:#555;padding:4px 0;">Mobile</td><td style="font-size:12px;font-weight:bold;color:#111;padding:4px 0;">${phone || '--'}</td></tr>
-<tr><td style="font-size:11px;color:#555;padding:4px 0;vertical-align:top;">E-mail</td><td style="font-size:12px;color:#111;padding:4px 0;">${email}</td></tr>
+<tr><td width="56" style="font-size:11px;color:#666;padding:3px 0;vertical-align:top;">Name</td><td style="font-size:13px;font-weight:bold;color:#111;padding:3px 0;">${full_name}</td></tr>
+<tr><td style="font-size:11px;color:#666;padding:3px 0;vertical-align:top;">Address</td><td style="font-size:11px;color:#111;padding:3px 0;line-height:1.6;">${address || '--'}</td></tr>
+<tr><td style="font-size:11px;color:#666;padding:3px 0;">PIN</td><td style="font-size:12px;color:#111;padding:3px 0;">${pin || '--'}</td></tr>
+<tr><td style="font-size:11px;color:#666;padding:3px 0;">PAN</td><td style="font-size:12px;font-weight:bold;color:#111;padding:3px 0;">${pan || '--'}</td></tr>
+<tr><td style="font-size:11px;color:#666;padding:3px 0;">&#9742;Mobile</td><td style="font-size:12px;font-weight:bold;color:#111;padding:3px 0;">${phone || '--'}</td></tr>
+<tr><td style="font-size:11px;color:#666;padding:3px 0;vertical-align:top;">E-mail</td><td style="font-size:11px;color:#111;padding:3px 0;">${email}</td></tr>
 ${msgRow}
 </table>
 </td>
-<td style="padding:12px 18px;vertical-align:top;width:45%;">
-<div style="font-size:10px;font-weight:bold;color:#c0185a;margin-bottom:5px;">-- Mode of Payment (Cheque / Online / UPI / Cash) --</div>
-<div style="border:1px solid #bbb;padding:6px 10px;font-size:13px;margin-bottom:12px;background:#fff;">${payMode}</div>
-<div style="font-size:10px;font-weight:bold;color:#c0185a;margin-bottom:5px;">-- Payment Details (Cheque / Transaction Details) --</div>
-<div style="border:1px solid #bbb;padding:6px 10px;font-size:11px;font-family:monospace;margin-bottom:12px;background:#fff;word-break:break-all;">${payment_id || '--'}</div>
-<div style="font-size:10px;font-weight:bold;color:#c0185a;margin-bottom:5px;">-- Purpose of Donation (Corpus / General / Others) --</div>
-<div style="border:1px solid #bbb;padding:6px 10px;font-size:13px;background:#fff;">${seva_type}</div>
-</td>
-</tr></table>
-</td></tr>
 
-<!-- SIGNATURE ROW -->
-<tr><td style="border-bottom:1.5px solid #c8a84b;">
-<table width="100%" cellpadding="0" cellspacing="0"><tr>
-<td style="padding:30px 18px 12px;border-right:1px solid #c8a84b;width:50%;text-align:center;vertical-align:bottom;">
-<div style="border-top:1px solid #888;padding-top:5px;font-size:10px;color:#555;">Donor Signature for Cash Payment</div>
+<td width="46%" style="padding:10px 14px;">
+<div style="font-size:9px;font-weight:bold;color:#c0185a;margin-bottom:4px;">&#8212; Mode of Payment (Cheque / Online / UPI / Cash) &#8212;</div>
+<table cellpadding="6" cellspacing="0" width="100%" style="border:1px solid #ccc;background:#fff;margin-bottom:10px;"><tr><td style="font-size:13px;color:#111;">${payMode}</td></tr></table>
+<div style="font-size:9px;font-weight:bold;color:#c0185a;margin-bottom:4px;">&#8212; Payment Details (Cheque / Transaction Details) &#8212;</div>
+<table cellpadding="6" cellspacing="0" width="100%" style="border:1px solid #ccc;background:#fff;margin-bottom:10px;"><tr><td style="font-size:11px;color:#111;font-family:monospace;word-break:break-all;">${payment_id || '--'}</td></tr></table>
+<div style="font-size:9px;font-weight:bold;color:#c0185a;margin-bottom:4px;">&#8212; Purpose of Donation (Corpus / General / Others) &#8212;</div>
+<table cellpadding="6" cellspacing="0" width="100%" style="border:1px solid #ccc;background:#fff;"><tr><td style="font-size:13px;color:#111;">${seva_type || 'General'}</td></tr></table>
 </td>
-<td style="padding:12px 18px;width:50%;text-align:center;vertical-align:bottom;">
-<div style="font-size:13px;font-weight:bold;color:#111;margin-bottom:16px;">Temple President<br/><span style="font-size:11px;color:#555;font-weight:normal;">ISKCON Ayodhya</span></div>
-<div style="border-top:1px solid #888;padding-top:5px;font-size:10px;color:#555;">Signature of ISKCON Representative</div>
+
+</tr></table>
+</td>
+</tr>
+
+<!-- SIGNATURE -->
+<tr>
+<td style="border-bottom:1.5px solid #c9a84c;padding:0;">
+<table cellpadding="0" cellspacing="0" width="100%"><tr>
+<td width="50%" style="padding:30px 14px 10px;border-right:1px solid #c9a84c;text-align:center;vertical-align:bottom;">
+<div style="border-top:1px solid #888;padding-top:4px;font-size:10px;color:#666;">Donor Signature for Cash Payment</div>
+</td>
+<td width="50%" style="padding:10px 14px;text-align:center;vertical-align:bottom;">
+<div style="font-size:13px;font-weight:bold;color:#111;margin-bottom:18px;">Rambhadra Das</div>
+<div style="font-size:10px;color:#555;margin-bottom:4px;">Temple President, ISKCON Ayodhya</div>
+<div style="border-top:1px solid #888;padding-top:4px;font-size:10px;color:#666;">Signature of ISKCON Representative</div>
 </td>
 </tr></table>
-</td></tr>
+</td>
+</tr>
 
 <!-- REGISTERED OFFICE -->
-<tr><td style="background:#fff8e1;border-bottom:1.5px solid #c8a84b;padding:8px 18px;text-align:center;">
-<div style="font-size:10px;color:#333;line-height:1.7;"><strong>Registered Office:</strong> Hare Krishna Land, Juhu, Mumbai - 400 049. Mobile: 72088 46210. E-mail: info@iskconindia.org<br/>Registered under Maharashtra Public Trust Act 1950, vide Regn. No.: F-2179 (Bom). Unique Regn. No. (80G): AAATI0017PF20219</div>
-</td></tr>
+<tr bgcolor="#fffde0">
+<td style="border-bottom:1.5px solid #c9a84c;padding:7px 14px;text-align:center;">
+<div style="font-size:10px;color:#333;line-height:1.75;">
+<strong>Registered Office:</strong> Hare Krishna Land, Juhu, Mumbai - 400 049. &nbsp; &#9742;Mobile: 72088 46210. &nbsp; E-mail: info@iskconindia.org<br/>
+Registered under Maharashtra Public Trust Act 1950, vide Regn. No.: F-2179 (Bom). Unique Regn. No. (80G): AAATI0017PF20219
+</div>
+</td>
+</tr>
 
-<!-- TERMS AND CONDITIONS -->
-<tr><td style="padding:20px 22px;">
-<p style="font-size:13px;font-weight:bold;color:#111;margin:0 0 10px;">Please note Terms and Conditions (T&amp;C):</p>
-<ul style="font-size:11.5px;color:#333;line-height:1.85;margin:0;padding-left:18px;">
+<!-- TERMS -->
+<tr>
+<td style="padding:16px 20px 14px;">
+<p style="font-size:13px;font-weight:bold;color:#111;margin:0 0 8px;">Please note Terms and Conditions (T&amp;C):</p>
+<ul style="font-size:11px;color:#333;line-height:1.9;margin:0;padding-left:16px;">
 <li>This donation receipt is an acknowledgement only and not for the purpose of claiming 80G deduction.</li>
-<li>Form No. 10BE (Certificate of donation under clause (ix) of sub-section (5) of section 80G of the Income Tax Act, 1961) will be issued as per provisions of Income-tax Act, 1961. Generally 10BE will be issued by 31st May of the following financial year.</li>
-<li>For all types of donations, irrespective of amount and mode of payment, full legal name and address with PIN are required. PAN is compulsory to obtain Form No. 10BE. Please ensure these are mentioned correctly in the donation receipt.</li>
+<li>Form No. 10BE, i.e., Certificate of donation under clause (ix) of sub-section (5) of section 80G of the Income Tax Act, 1961, will be issued to you as per provisions of Income-tax Act, 1961, and rules made thereunder. Generally 10BE will be issued by 31st May of the following financial year.</li>
+<li>For all type of donations, irrespective of amount and mode of payment, full legal name and address with PIN are required. Further PAN is compulsory to obtain Form No. 10BE. Please ensure that the same are mentioned correctly in the donation receipt.</li>
 <li>Form No. 10BE is not available for any cash donation.</li>
-<li>10BE will be available in PDF version only. Please ensure to mention correct WhatsApp number and E-mail ID to receive the same.</li>
-<li>PAN is compulsory for all donations of Rs. 50,000/- or more.</li>
-<li>ISKCON's Unique Registration Number for 80G - AAATI0017PF20219 is valid till March 31, 2026 and to be renewed thereafter periodically.</li>
-<li>In case of any error/discrepancy in this receipt (Name, Address, PAN, E-mail, WhatsApp number), please contact us for correction.</li>
+<li>10BE will be available in PDF version only. Please ensure to mention correct WhatsApp number and E-mail id to receive the same.</li>
+<li>PAN is compulsory for all donation of Rs. 50,000/- or more.</li>
+<li>In case of payment by cheque, this donation receipt is valid subject to clearance of the cheque.</li>
+<li>ISKCON's Unique Registration Number for 80G &#8211; AAATI0017PF20219 is valid till March 31, 2026 and to be renewed thereafter periodically as per provisions of Income-tax Act, 1961, and rules made thereunder.</li>
+<li>In case of any error/discrepancy in this receipt, including your Name, address and PAN, E-mail ID, WhatsApp number etc. please contact the receipt issuing centre for correction.</li>
 </ul>
-<p style="font-size:13px;text-align:center;color:#333;margin:20px 0 4px;">Thank you for your support.</p>
-<p style="font-size:13px;text-align:center;color:#333;margin:4px 0;">Please chant</p>
-<p style="font-size:14px;font-weight:bold;text-align:center;color:#111;margin:10px 0;letter-spacing:.5px;">HARE KRISHNA HARE KRISHNA KRISHNA KRISHNA HARE HARE<br/>HARE RAMA HARE RAMA RAMA RAMA HARE HARE</p>
-<p style="font-size:13px;text-align:center;color:#333;margin:4px 0 0;">and be happy.</p>
-</td></tr>
+<p style="font-size:12px;text-align:center;color:#333;margin:14px 0 3px;">Thank you for your support.</p>
+<p style="font-size:12px;text-align:center;color:#333;margin:3px 0 5px;">Please chant</p>
+<p style="font-size:14px;font-weight:bold;text-align:center;color:#111;margin:8px 0;letter-spacing:.8px;line-height:1.65;">HARE KRISHNA HARE KRISHNA KRISHNA KRISHNA HARE HARE<br/>HARE RAMA HARE RAMA RAMA &nbsp; RAMA HARE HARE</p>
+<p style="font-size:12px;text-align:center;color:#333;margin:3px 0 0;">and be happy.</p>
+</td>
+</tr>
 
-</table></td></tr></table>
-</body></html>`;
+</table>
+</td>
+
+<!-- PTO + YEAR vertical -->
+<td width="20" align="center" valign="middle" style="padding-left:4px;">
+<div style="writing-mode:vertical-rl;transform:rotate(180deg);font-size:11px;font-weight:bold;color:#555;letter-spacing:3px;">P.T.O.</div>
+<br/>
+<div style="writing-mode:vertical-rl;transform:rotate(180deg);font-size:11px;font-weight:bold;color:#555;letter-spacing:3px;">${year}</div>
+</td>
+
+</tr>
+</table>
+
+</td></tr>
+</table>
+</body>
+</html>`;
 }
 
 // ─────────────────────────────────────────────────────────────

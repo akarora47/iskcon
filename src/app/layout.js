@@ -65,7 +65,7 @@ export default async function RootLayout({ children }) {
                     <img src="/logo.png" alt="ISKCON Ayodhya" style={{ height: '2.75rem', width: 'auto', objectFit: 'contain', filter: 'brightness(0) invert(1)' }} />
                   </div>
                   <p style={{ fontSize: '.84rem', lineHeight: 1.85, color: 'rgba(255,255,255,.5)', marginBottom: '.75rem', maxWidth: '260px' }}>
-                    Spreading the divine love of Lord Krishna and Lord Ram in the sacred city of Ayodhya since 2020.
+                    Spreading the divine love of Lord Krishna and Lord Ram in the sacred city of Ayodhya since 2019.
                   </p>
                   <p style={{ fontSize: '.82rem', fontFamily: 'var(--font-cinzel),serif', color: '#ed6800', marginBottom: '1.5rem', letterSpacing: '.06em', fontWeight: 600 }}>
                     Hare Krishna Hare Krishna 🙏
