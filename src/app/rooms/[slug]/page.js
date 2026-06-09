@@ -148,7 +148,7 @@ export default async function RoomDetailPage({ params }) {
                   <p style={{ fontSize:'.84rem', color:'#666', lineHeight:1.7, marginBottom:'1.25rem' }}>
                     Fill in your details and our team will confirm your booking within 24 hours.
                   </p>
-                  <BookingModalBtns />
+                  <BookingModalBtns roomName={room.title} />
                   <p style={{ fontSize:'.7rem', color:'#bbb', textAlign:'center', marginTop:'.75rem' }}>Free cancellation · Confirmation within 24 hours</p>
                 </div>
               </div>

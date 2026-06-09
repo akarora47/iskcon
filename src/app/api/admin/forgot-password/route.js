@@ -12,8 +12,7 @@ export async function POST(req) {
     if (!email) return NextResponse.json({ error: 'Email is required' }, { status: 400 });
 
     const [rows] = await pool.query('SELECT * FROM admin_users WHERE email = ?', [email.toLowerCase().trim()]);
-    // Always return success to prevent email enumeration
-    if (!rows.length) return NextResponse.json({ message: 'If this email exists, an OTP has been sent.' });
+    if (!rows.length) return NextResponse.json({ error: 'No admin account found with this email.' }, { status: 404 });
 
     const otp = generateOTP();
     const expires = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes

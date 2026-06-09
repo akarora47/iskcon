@@ -26,7 +26,8 @@ export async function POST(req) {
       [name, email, phone||'', subject||'General Enquiry', message]
     );
     // Send emails (non-blocking — won't fail the response)
-    sendContactEmails({ name, email, phone, subject: subject || 'General Enquiry', message }).catch(console.error);
+    sendContactEmails({ name, email, phone, subject: subject || 'General Enquiry', message })
+      .catch(e => console.error('[Email contact]', e.message));
     return NextResponse.json({ message: 'Message received! We will respond within 24 hours. Hare Krishna 🙏' }, { status: 201 });
   } catch (e) {
     return NextResponse.json({ error: e.message }, { status: 500 });
